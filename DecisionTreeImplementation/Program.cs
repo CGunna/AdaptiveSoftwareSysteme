@@ -10,6 +10,11 @@ namespace DecisionTree.Implementation
     {
         static void Main(string[] args)
         {
+            ExampleFactory exampleFactory = new ExampleFactory();
+
+            IDecisionTreeExample decisionTreeExample = exampleFactory.GetIrisExamples();
+
+            Console.ReadKey(true);
         }
     }
 }
