@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    interface IDecisionTreeExample
+    interface IDecisionTreeExampleData
     {
         List<Feature> Features { get; }
 
         List<ExampleRow> ExampleRows { get;  }
 
         int Dimensions { get; }
+
+        ITestData[] GetTestData();
     }
 }

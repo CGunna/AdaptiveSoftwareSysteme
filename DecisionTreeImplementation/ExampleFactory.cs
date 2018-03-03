@@ -9,14 +9,14 @@ namespace DecisionTree.Implementation
 {
     class ExampleFactory
     {
-        public IDecisionTreeExample GetIrisExamples()
+        public IDecisionTreeExampleData GetIrisExamples()
         {
             return this.GetDecisionTreeExample(@"Examples\iris.csv");
         }
 
-        private IDecisionTreeExample GetDecisionTreeExample(string csvPath)
+        private IDecisionTreeExampleData GetDecisionTreeExample(string csvPath)
         {
-            IDecisionTreeExample decisionTreeExample = new DecisionTreeExample();
+            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData();
 
             try
             {
@@ -34,8 +34,10 @@ namespace DecisionTree.Implementation
 
                         // Columns
                         for (int j = 0; j < line.Length; j++)
+                        {
                             // Add Feature
                             decisionTreeExample.Features.Add(new Feature(line[j]));
+                        }
                     }
                     else // Example
                     {
@@ -47,8 +49,10 @@ namespace DecisionTree.Implementation
 
                         // Columns
                         for (int j = 0; j < line.Length; j++)
+                        {
                             // Add Items to row
                             row.Items.Add(new Example(decisionTreeExample.Features[j], line[j]));
+                        }
 
                         decisionTreeExample.ExampleRows.Add(row);
                     }

@@ -12,7 +12,7 @@ namespace DecisionTree.Implementation
         {
             ExampleFactory exampleFactory = new ExampleFactory();
 
-            IDecisionTreeExample decisionTreeExample = exampleFactory.GetIrisExamples();
+            IDecisionTreeExampleData decisionTreeExample = exampleFactory.GetIrisExamples();
 
             Console.ReadKey(true);
         }

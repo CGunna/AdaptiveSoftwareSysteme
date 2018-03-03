@@ -12,6 +12,8 @@ namespace DecisionTree.Implementation
 
         public List<Example> Items { get => this.items; }
 
+        public string ClassName { get => this.items.Where(x => x.RelatedFeature.Name.ToUpper() == "Class".ToUpper()).First().Value.ToString(); }
+
         public ExampleRow()
         {
             this.items = new List<Example>();

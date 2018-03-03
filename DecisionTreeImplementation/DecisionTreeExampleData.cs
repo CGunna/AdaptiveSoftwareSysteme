@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    class DecisionTreeExample : IDecisionTreeExample
+    class DecisionTreeExampleData : IDecisionTreeExampleData
     {
         private List<Feature> features;
         private List<ExampleRow> exampleRows;
@@ -17,11 +17,17 @@ namespace DecisionTree.Implementation
 
         public int Dimensions { get => this.dimensions; }
 
-        public DecisionTreeExample()
+        public DecisionTreeExampleData()
         {
             this.features = new List<Feature>();
             this.exampleRows = new List<ExampleRow>();
             this.dimensions = 2;
+        }
+
+        public ITestData[] GetTestData()
+        {
+            throw new NotImplementedException();
+
         }
     }
 }

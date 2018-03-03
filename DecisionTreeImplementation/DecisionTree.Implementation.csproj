@@ -42,12 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecisionTreeExample.cs" />
+    <Compile Include="DecisionTreeExampleData.cs" />
     <Compile Include="Example.cs" />
     <Compile Include="ExampleFactory.cs" />
     <Compile Include="ExampleRow.cs" />
     <Compile Include="Feature.cs" />
-    <Compile Include="IDecisionTreeExample.cs" />
+    <Compile Include="IDecisionTreeExampleData.cs" />
+    <Compile Include="ITestData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
