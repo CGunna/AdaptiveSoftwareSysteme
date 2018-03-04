@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    class ExampleRow
+    class ExampleRow : IExampleRow
     {
-        private List<Example> items;
+        private List<IExample> items;
 
-        public List<Example> Items { get => this.items; }
+        public List<IExample> Items { get => this.items; }
 
-        public string ClassName { get => this.items.Where(x => x.RelatedFeature.Name.ToUpper() == "Class".ToUpper()).First().Value.ToString(); }
+        public string Class { get => this.items.Where(x => x.RelatedFeature.Name.ToUpper() == "Class".ToUpper()).First().Value.ToString(); }
 
         public ExampleRow()
         {
-            this.items = new List<Example>();
+            this.items = new List<IExample>();
         }
 
         public override string ToString()

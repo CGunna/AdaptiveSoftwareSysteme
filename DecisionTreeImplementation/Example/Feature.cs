@@ -1,6 +1,6 @@
 ﻿namespace DecisionTree.Implementation
 {
-    public class Feature
+    internal class Feature : IFeature
     {
         public string Name { get; set; }
 

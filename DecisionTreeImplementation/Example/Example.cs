@@ -1,8 +1,8 @@
 ﻿namespace DecisionTree.Implementation
 {
-    public class Example
+    internal class Example : IExample
     {
-        public Feature RelatedFeature { get; set; }
+        public IFeature RelatedFeature { get; set; }
 
         public object Value { get; set; }
 
@@ -10,7 +10,7 @@
         {
         }
 
-        public Example(Feature feature, object value)
+        public Example(IFeature feature, object value)
         {
             this.RelatedFeature = feature;
             this.Value = value;
