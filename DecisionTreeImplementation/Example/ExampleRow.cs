@@ -21,14 +21,7 @@ namespace DecisionTree.Implementation
 
         public override string ToString()
         {
-            string s = string.Empty;
-
-            foreach (var item in this.Items)
-            {
-                s += $"{ item.ToString() } ";
-            }
-
-            return s;
+            return this.Class;
         }
     }
 }
