@@ -8,5 +8,14 @@ namespace DecisionTree.Implementation
 {
     class Split
     {
+        public double InformationGain { get; set; }
+
+        public string FeatureName { get; set; }
+
+        public Split(string featureName, double informationGain)
+        {
+            this.InformationGain = informationGain;
+            this.FeatureName = featureName;
+        }
     }
 }

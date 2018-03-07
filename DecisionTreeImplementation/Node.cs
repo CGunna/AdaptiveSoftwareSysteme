@@ -14,9 +14,12 @@ namespace DecisionTree.Implementation
 
         public Split OutgoingSplit { get; set; }
 
+        public Node Left { get; set; }
+
+        public Node Right { get; set; }
+
         public Node(DecisionTree tree)
         {
-            this.OutgoingSplit = new Split();
             this.tree = tree;
         }
 
@@ -28,39 +31,83 @@ namespace DecisionTree.Implementation
 
         public void TrySplit()
         {
-            // Es muss versucht werden nach jedem Feature zu splitten
-            // Es muss an jeder stelle jedes Wertes von jedem Feature versucht werden
-            // Der beste Information Gain wird zwischen gepeichert (und das Feature und der Split Wert)
+            // declare temp values
+            double entropy = this.GetEntropie();
+            double bestInformationGain = -1;
+            string bestFeature = "";
+            Node left = null;
+            Node right = null;
 
-            // Für jedes Feature
+            // for every feature
             foreach (var possibleFeature in this.tree.ExisitingFeatures)
             {
-                // Für jeden Split Punkt
-                foreach (var citizen in this.Population)
+                // for every citizen
+                foreach (var citizen in this.Population) 
+                    // TODO optimize -> maybe we can do it without the 3rd loop when we order the values
                     //.OrderBy(x => x.Items.Where(y => y.RelatedFeature.Name == possibleFeature)))
                 {
-                    // Splitwert holen
+                    // get split value
                     var value = citizen.Items.Where(x => x.RelatedFeature.Name == possibleFeature).Single().Value;
 
-                    // alle kleiner und alle größer auftrennen
+                    // create 2 buckets for seperation
                     List<IExampleRow> smallerEqual = new List<IExampleRow>();
                     List<IExampleRow> greater = new List<IExampleRow>();
 
-                    // den gesplitteten in den smaller Equal
+                    // put the current split value in the left bucket
                     smallerEqual.Add(citizen);
 
                     foreach (var splitCandidate in this.Population.Where(x => x != citizen))
                     {
-                        // prüfen wenn Wert des Features kleiner dem Split Value dann nach links sonst nach rechts
+                        // check if values are smaller or equal -> if so put them in left bucket else right
                         if (splitCandidate.Items.Where(x => x.RelatedFeature.Name == possibleFeature).Single()?.Value <= value)
                             smallerEqual.Add(splitCandidate);
                         else
                             greater.Add(splitCandidate);
                     }
 
-                    // Entropie und Information Gain berechnen für beide Teilknoten
-                    // Wenn besser als bisherige -> speichern
+                    // Create new Nodes
+                    Node leftTemp = new Node(this.tree, smallerEqual);
+                    Node rightTemp = new Node(this.tree, greater);
+
+                    // step by step
+                    double entropyP1 = leftTemp.GetEntropie();
+                    double entropyP2 = rightTemp.GetEntropie();
+
+                    // multiply with w(i) and add those 2 nodes together
+                    double sAfter = ((smallerEqual.Count / (double)this.Population.Count) * entropyP1) + ((greater.Count / (double)this.Population.Count) * entropyP2);
+                     
+                    // subtract from original entropy to get the Information Gain of the Split
+                    double informationGain = entropy - sAfter;
+
+                    // check if the calculated values are better than the values calculated in an iteration before
+                    if (informationGain >= bestInformationGain)
+                    {
+                        bestInformationGain = informationGain;
+                        left = leftTemp;
+                        right = rightTemp;
+                        bestFeature = possibleFeature;
+                    }
                 }
+            }
+
+            if (left != null && right != null)
+            {
+                // Recursion terminition condition
+                if (bestInformationGain <= 0)
+                {
+                    return;
+                }
+
+                // Store split for information Gain
+                this.OutgoingSplit = new Split(bestFeature, bestInformationGain);
+
+                // set successors
+                this.Left = left;
+                this.Right = right;
+
+                // Recursive Call
+                this.Left.TrySplit();
+                this.Right.TrySplit();
             }
         }
 
@@ -70,10 +117,12 @@ namespace DecisionTree.Implementation
 
             foreach (string className in this.tree.ExistingClasses)
             {
-                double classCount = this.Population.Count(x => x.Class == className);
-                double populationCount = this.Population.Count;
+                double fraction = this.Population.Count(x => x.Class == className) / (double)this.Population.Count;
 
-                entropie += -1 * ((classCount / populationCount) * Math.Log((classCount / populationCount), 2));
+                if (fraction != 0)
+                {
+                    entropie += (-1 * (fraction)) * Math.Log(fraction, this.tree.ExistingClasses.Count);
+                }
             }
 
             return entropie;

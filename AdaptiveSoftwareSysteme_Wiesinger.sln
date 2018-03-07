@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecisionTree.Implementation", "DecisionTreeImplementation\DecisionTree.Implementation.csproj", "{C6DE94AC-7011-4692-95FC-723BFB43C9ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tree.Visualization", "Tree.Visualization\Tree.Visualization.csproj", "{5A6EBEE4-494D-4E27-8E99-5D0DDDADF55B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C6DE94AC-7011-4692-95FC-723BFB43C9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6DE94AC-7011-4692-95FC-723BFB43C9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6DE94AC-7011-4692-95FC-723BFB43C9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A6EBEE4-494D-4E27-8E99-5D0DDDADF55B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A6EBEE4-494D-4E27-8E99-5D0DDDADF55B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A6EBEE4-494D-4E27-8E99-5D0DDDADF55B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A6EBEE4-494D-4E27-8E99-5D0DDDADF55B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
