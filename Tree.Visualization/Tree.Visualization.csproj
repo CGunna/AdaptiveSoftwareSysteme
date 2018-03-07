@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DecisionTreeImplementation\DecisionTree.Implementation.csproj">
+      <Project>{c6de94ac-7011-4692-95fc-723bfb43c9ed}</Project>
+      <Name>DecisionTree.Implementation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

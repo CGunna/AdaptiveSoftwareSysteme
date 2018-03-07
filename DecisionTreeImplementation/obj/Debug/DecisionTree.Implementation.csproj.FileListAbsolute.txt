@@ -5,10 +5,9 @@ C:\Users\emasos\Documents\Visual Studio 2017\Projects\AdaptiveSoftwareSysteme_Wi
 C:\Users\emasos\Documents\Visual Studio 2017\Projects\AdaptiveSoftwareSysteme_Wiesinger\DecisionTreeImplementation\obj\Debug\DecisionTree.Implementation.csproj.CoreCompileInputs.cache
 C:\Users\emasos\Documents\Visual Studio 2017\Projects\AdaptiveSoftwareSysteme_Wiesinger\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.exe
 C:\Users\emasos\Documents\Visual Studio 2017\Projects\AdaptiveSoftwareSysteme_Wiesinger\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.pdb
-C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.exe.config
-C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.exe
 C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.pdb
-C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTree.Implementation.csprojResolveAssemblyReference.cache
 C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTree.Implementation.csproj.CoreCompileInputs.cache
-C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.exe
 C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.pdb
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.dll.config
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.dll
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.dll
