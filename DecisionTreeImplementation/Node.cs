@@ -32,12 +32,15 @@ namespace DecisionTree.Implementation
             // Es muss an jeder stelle jedes Wertes von jedem Feature versucht werden
             // Der beste Information Gain wird zwischen gepeichert (und das Feature und der Split Wert)
 
+            // Für jedes Feature
             foreach (var possibleFeature in this.tree.ExisitingFeatures)
             {
-                foreach (var citizen in this.Population.OrderBy(x => x.Items.Where(y => y.RelatedFeature.Name == possibleFeature)))
+                // Für jeden Split Punkt
+                foreach (var citizen in this.Population)
+                    //.OrderBy(x => x.Items.Where(y => y.RelatedFeature.Name == possibleFeature)))
                 {
                     // Splitwert holen
-                    var value = citizen.Items.Where(x => x.RelatedFeature.Name == possibleFeature).Single();
+                    var value = citizen.Items.Where(x => x.RelatedFeature.Name == possibleFeature).Single().Value;
 
                     // alle kleiner und alle größer auftrennen
                     List<IExampleRow> smallerEqual = new List<IExampleRow>();
@@ -45,6 +48,18 @@ namespace DecisionTree.Implementation
 
                     // den gesplitteten in den smaller Equal
                     smallerEqual.Add(citizen);
+
+                    foreach (var splitCandidate in this.Population.Where(x => x != citizen))
+                    {
+                        // prüfen wenn Wert des Features kleiner dem Split Value dann nach links sonst nach rechts
+                        if (splitCandidate.Items.Where(x => x.RelatedFeature.Name == possibleFeature).Single()?.Value <= value)
+                            smallerEqual.Add(splitCandidate);
+                        else
+                            greater.Add(splitCandidate);
+                    }
+
+                    // Entropie und Information Gain berechnen für beide Teilknoten
+                    // Wenn besser als bisherige -> speichern
                 }
             }
         }

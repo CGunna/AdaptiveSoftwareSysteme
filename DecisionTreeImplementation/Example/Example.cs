@@ -4,13 +4,13 @@
     {
         public IFeature RelatedFeature { get; set; }
 
-        public object Value { get; set; }
+        public double Value { get; set; }
 
         public Example()
         {
         }
 
-        public Example(IFeature feature, object value)
+        public Example(IFeature feature, double value)
         {
             this.RelatedFeature = feature;
             this.Value = value;

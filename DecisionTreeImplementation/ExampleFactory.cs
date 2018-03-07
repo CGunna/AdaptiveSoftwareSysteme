@@ -61,7 +61,7 @@ namespace DecisionTree.Implementation
                                 className = line[j];
                             else
                                 // Add Items to row
-                                row.Items.Add(new Example(decisionTreeExample.Features[j], line[j]));
+                                row.Items.Add(new Example(decisionTreeExample.Features[j], double.Parse(line[j])));
                         }
 
                         row.Class = className;

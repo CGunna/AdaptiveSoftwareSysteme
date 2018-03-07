@@ -10,6 +10,6 @@ namespace DecisionTree.Implementation
     {
         IFeature RelatedFeature { get; set; }
 
-        object Value { get; set; }
+        double Value { get; set; }
     }
 }
