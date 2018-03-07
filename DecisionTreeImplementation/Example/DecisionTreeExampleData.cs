@@ -23,10 +23,5 @@ namespace DecisionTree.Implementation
             this.exampleRows = new List<IExampleRow>();
             this.dimensions = 2;
         }
-
-        public IDecisionTreeCategory[,] GetTestData()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -13,7 +13,5 @@ namespace DecisionTree.Implementation
         List<IExampleRow> ExampleRows { get;  }
 
         int Dimensions { get; }
-
-        IDecisionTreeCategory[,] GetTestData();
     }
 }

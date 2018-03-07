@@ -42,20 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Example\DecisionTreeCategory.cs" />
+    <Compile Include="DecisionTree.cs" />
     <Compile Include="Example\DecisionTreeExampleData.cs" />
     <Compile Include="Example\Example.cs" />
     <Compile Include="ExampleFactory.cs" />
     <Compile Include="Example\ExampleRow.cs" />
     <Compile Include="Example\Feature.cs" />
-    <Compile Include="Interfaces\IDecisionTreeCategory.cs" />
     <Compile Include="Interfaces\IDecisionTreeExampleData.cs" />
     <Compile Include="Interfaces\IExample.cs" />
     <Compile Include="Interfaces\IExampleRow.cs" />
     <Compile Include="Interfaces\IFeature.cs" />
-    <Compile Include="Plain.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Split.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

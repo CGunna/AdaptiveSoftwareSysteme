@@ -9,10 +9,17 @@ namespace DecisionTree.Implementation
     class ExampleRow : IExampleRow
     {
         private List<IExample> items;
+        private string className;
 
         public List<IExample> Items { get => this.items; }
 
-        public string Class { get => this.items.Where(x => x.RelatedFeature.Name.ToUpper() == "Class".ToUpper()).First().Value.ToString(); }
+        public string Class { get => this.className; set => this.className = value; }
+
+        public ExampleRow(string className)
+            : this()
+        {
+            this.className = className;
+        }
 
         public ExampleRow()
         {

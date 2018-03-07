@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    interface IDecisionTreeCategory
+    class Split
     {
-        double X { get;  }
-        double Y { get;  }
-        string Category { get; }
     }
 }
