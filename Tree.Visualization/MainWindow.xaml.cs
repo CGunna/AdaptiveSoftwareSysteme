@@ -28,7 +28,10 @@ namespace Tree.Visualization
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            ExampleFactory factory = new ExampleFactory();
+            MyDecisionTree tree = new MyDecisionTree(factory.GetIrisExamples());
+
+            tree.RootNode.TrySplit();
         }
     }
 }

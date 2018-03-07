@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    class ExampleFactory
+    public class ExampleFactory
     {
         public IDecisionTreeExampleData GetIrisExamples()
         {
@@ -72,10 +72,12 @@ namespace DecisionTree.Implementation
             catch (FileNotFoundException e)
             {
                 // Todo: Error Handling
+                throw e;
             }
             catch (IOException e)
             {
                 // Todo: Error Handling
+                throw e;
             }
 
             return decisionTreeExample;

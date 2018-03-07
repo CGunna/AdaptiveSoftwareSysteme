@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    internal class DecisionTree
+    public class MyDecisionTree
     {
         private Node rootNode;
         private List<string> existingClasses;
@@ -17,7 +17,7 @@ namespace DecisionTree.Implementation
         public ICollection<string> ExistingClasses { get => this.existingClasses; }
         public ICollection <string> ExisitingFeatures { get => this.existingFeatures; }
 
-        public DecisionTree(IDecisionTreeExampleData exampleData)
+        public MyDecisionTree(IDecisionTreeExampleData exampleData)
         {
             this.existingClasses = new List<string>();
             this.existingFeatures = new List<string>();

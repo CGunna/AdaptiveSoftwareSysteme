@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    interface IExample
+    public interface IExample
     {
         IFeature RelatedFeature { get; set; }
 

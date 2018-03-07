@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    internal class Node
+    public class Node
     {
-        private readonly DecisionTree tree;
+        private readonly MyDecisionTree tree;
 
         public ICollection<IExampleRow> Population { get; set; }
 
@@ -18,12 +18,12 @@ namespace DecisionTree.Implementation
 
         public Node Right { get; set; }
 
-        public Node(DecisionTree tree)
+        public Node(MyDecisionTree tree)
         {
             this.tree = tree;
         }
 
-        public Node(DecisionTree tree, ICollection<IExampleRow> population)
+        public Node(MyDecisionTree tree, ICollection<IExampleRow> population)
             : this(tree)
         {
             this.Population = population.OrderBy(x => x.Class).ToList();

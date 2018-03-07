@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    class Split
+    public class Split
     {
         public double InformationGain { get; set; }
 

@@ -14,7 +14,7 @@ namespace DecisionTree.Implementation
 
             IDecisionTreeExampleData decisionTreeExample = exampleFactory.GetIrisExamples();
 
-            DecisionTree tree = new DecisionTree(decisionTreeExample);
+            MyDecisionTree tree = new MyDecisionTree(decisionTreeExample);
 
             Console.WriteLine("Start Entropie: " + tree.RootNode.GetEntropie());
 

@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DecisionTree.cs" />
+    <Compile Include="MyDecisionTree.cs" />
     <Compile Include="Example\DecisionTreeExampleData.cs" />
     <Compile Include="Example\Example.cs" />
     <Compile Include="ExampleFactory.cs" />

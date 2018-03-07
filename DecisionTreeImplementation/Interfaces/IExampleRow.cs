@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    interface IExampleRow
+    public interface IExampleRow
     {
         string Class { get; }
 
