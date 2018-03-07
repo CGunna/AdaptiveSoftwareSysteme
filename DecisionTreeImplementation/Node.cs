@@ -127,5 +127,10 @@ namespace DecisionTree.Implementation
 
             return entropie;
         }
+
+        public override string ToString()
+        {
+            return $"Population: {this.Population.Count.ToString()} Entropie: {Math.Round(this.GetEntropie(), 2)}";
+        }
     }
 }
