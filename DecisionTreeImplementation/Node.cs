@@ -14,9 +14,9 @@ namespace DecisionTree.Implementation
 
         public Split OutgoingSplit { get; set; }
 
-        public Node Left { get; set; }
+        public Node LeftNode { get; set; }
 
-        public Node Right { get; set; }
+        public Node RightNode { get; set; }
 
         public Node(MyDecisionTree tree)
         {
@@ -102,12 +102,12 @@ namespace DecisionTree.Implementation
                 this.OutgoingSplit = new Split(bestFeature, bestInformationGain);
 
                 // set successors
-                this.Left = left;
-                this.Right = right;
+                this.LeftNode = left;
+                this.RightNode = right;
 
                 // Recursive Call
-                this.Left.TrySplit();
-                this.Right.TrySplit();
+                this.LeftNode.TrySplit();
+                this.RightNode.TrySplit();
             }
         }
 
@@ -130,7 +130,16 @@ namespace DecisionTree.Implementation
 
         public override string ToString()
         {
-            return $"Population: {this.Population.Count.ToString()} Entropie: {Math.Round(this.GetEntropie(), 2)}";
+            string s = string.Empty;
+
+            foreach (var availableClass in this.tree.ExistingClasses)
+            {
+                s += $"{availableClass}: ({this.Population.Count(x => x.Class == availableClass)}/{this.Population.Count})";
+                s += Environment.NewLine;
+            }
+
+            s += $"Entropie: {Math.Round(this.GetEntropie(), 2)}";
+            return s;
         }
     }
 }

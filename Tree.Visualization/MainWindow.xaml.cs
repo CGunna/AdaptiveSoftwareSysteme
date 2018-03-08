@@ -32,6 +32,9 @@ namespace Tree.Visualization
             MyDecisionTree tree = new MyDecisionTree(factory.GetIrisExamples());
 
             tree.RootNode.TrySplit();
+
+            DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
+            renderer.Visualize();
         }
     }
 }
