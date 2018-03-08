@@ -8,6 +8,7 @@ namespace DecisionTree.Implementation
 {
     public class Node
     {
+
         private readonly MyDecisionTree tree;
 
         public ICollection<IExampleRow> Population { get; set; }

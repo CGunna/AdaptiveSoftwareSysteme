@@ -18,16 +18,29 @@ namespace Tree.Visualization
 {
     class VisualTreeNode
     {
+        public const int NodeWidth = 150;
+        public const int NodeHeight = 100;
+
         private double left;
 
         private double top;
 
-        private readonly Node node;
+        private double oldLeft;
+        private double oldTop;
+
+        public readonly Node node;
 
         public VisualTreeNode(Node actualNode)
         {
             this.node = actualNode;
             this.Visualize();
+        }
+
+        public VisualTreeNode(Node actualNode, double oldLeft, double oldTop)
+            : this(actualNode)
+        {
+            this.OldLeft = oldLeft;
+            this.OldTop = oldTop;
         }
 
         /// <summary>
@@ -74,10 +87,25 @@ namespace Tree.Visualization
 
             set
             {
-                this.top = value + (this.MyBorder.Height / 2);
+                this.top = value;
+                //this.top = value + (this.MyBorder.Height / 2);
                 Canvas.SetTop(this.MyBorder, this.top);
             }
         }
+
+
+        public double OldLeft
+        {
+            get { return oldLeft; }
+            set { oldLeft = value; }
+        }
+
+        public double OldTop
+        {
+            get { return oldTop; }
+            set { oldTop = value; }
+        }
+
 
         public override string ToString()
         {
@@ -87,17 +115,17 @@ namespace Tree.Visualization
         private void Visualize()
         {
             this.MyBorder = new Viewbox();
-            this.MyBorder.Width = 150;
-            this.MyBorder.Height = 100;
+            this.MyBorder.Width = NodeWidth;
+            this.MyBorder.Height = NodeHeight;
 
             Grid grid = new Grid();
             Ellipse circle = new Ellipse();
             circle.HorizontalAlignment = HorizontalAlignment.Center;
-            circle.Height = 100;
+            circle.Height = NodeHeight;
             circle.Fill = new SolidColorBrush(Colors.White);
             circle.Stroke = new SolidColorBrush(Colors.Black);
             circle.VerticalAlignment = VerticalAlignment.Center;
-            circle.Width = 150;
+            circle.Width = NodeWidth;
             circle.Opacity = 1;
             Canvas.SetZIndex(circle, -5);
 

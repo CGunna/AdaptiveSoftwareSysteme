@@ -32,11 +32,30 @@ namespace Tree.Visualization
             // create VisualTreeNode for RootNode
             VisualTreeNode root = new VisualTreeNode(this.tree.RootNode);
 
-            root.Left = (this.canvas.ActualWidth / 2) - 75;
-            root.Top = 10;
+            this.DrawNode(root, (this.canvas.ActualWidth / 2) - VisualTreeNode.NodeWidth / 2, 10);
+        }
 
+        private void DrawNode(VisualTreeNode node, double left, double top)
+        {
+            node.Left = left;
+            node.Top = top;
 
-            this.canvas.Children.Add(root.MyBorder);
+            // Draw Node
+            this.canvas.Children.Add(node.MyBorder);
+
+            // TODO Draw Lines
+            if (node.node.LeftNode != null)
+            {
+                VisualTreeNode leftNode = new VisualTreeNode(node.node.LeftNode);
+                double newLeft = left - ((leftNode.OldLeft == 0 ? left : leftNode.OldLeft) - left) / 2.1;
+                this.DrawNode(leftNode, newLeft, top + 100);
+            }
+
+            if (node.node.RightNode != null)
+            {
+                VisualTreeNode rightNode = new VisualTreeNode(node.node.RightNode);
+                this.DrawNode(rightNode, left + left / 2.1 + VisualTreeNode.NodeWidth / 2, top + 100);
+            }
         }
     }
 }
