@@ -13,3 +13,5 @@ Sepal length;Sepal width;Petal length;Petal width;class
 6,3;2,5;4,9;1,5;Iris-versicolor
 5,5;2,4;3,8;1,1;Iris-versicolor
 6,3;2,7;4,9;1,8;Iris-virginica
+4,3;3,2;1,6;0,2;Iris-versicolor
+4,9;2,2;2,5;0,2;Iris-setosa

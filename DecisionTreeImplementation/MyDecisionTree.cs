@@ -42,7 +42,6 @@ namespace DecisionTree.Implementation
             this.rootNode = new Node(this, exampleData.ExampleRows);
         }
 
-
         /// <summary>
         /// From https://stackoverflow.com/questions/8389232/how-to-find-height-of-bst-iteratively
         /// Thanks to the author: Viacheslav Smityukh

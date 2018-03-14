@@ -112,7 +112,7 @@ namespace DecisionTree.Implementation
                 this.LeftNode.TrySplit();
                 this.RightNode.TrySplit();
             }
-        }
+        }              
 
         public double GetEntropie()
         {
