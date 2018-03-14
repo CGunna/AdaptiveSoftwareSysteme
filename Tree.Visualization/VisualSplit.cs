@@ -24,57 +24,37 @@ namespace Tree.Visualization
         private double leftTo1;
         private double topTo1;
 
-        private double leftTo2;
-        private double topTo2;
-
         private readonly Split split;
 
+
+        public bool IsLeft { get => this.LeftTo - this.LeftFrom < 0; }
 
         public double LeftFrom
         {
             get { return leftFrom; }
-            set { leftFrom = value; }
+            set { leftFrom = value + VisualTreeNode.SmallNodeWidth / 2; }
         }
         public double TopFrom
         {
             get { return topFrom; }
-            set { topFrom = value; }
+            set { topFrom = value + VisualTreeNode.SmallNodeHeight / 2; }
         }
-        public double LeftTo1
+        public double LeftTo
         {
             get { return leftTo1; }
-            set { leftTo1 = value; }
+            set { leftTo1 = value + VisualTreeNode.SmallNodeWidth /2; }
         }
-        public double TopTo1
+        public double TopTo
         {
             get { return topTo1; }
-            set { topTo1 = value; }
-        }
-        public double LeftTo2
-        {
-            get { return leftTo2; }
-            set { leftTo2 = value; }
-        }
-        public double TopTo2
-        {
-            get { return topTo2; }
-            set { topTo2 = value; }
+            set { topTo1 = value + VisualTreeNode.SmallNodeHeight / 2; }
         }
 
+        public Viewbox MyBorder { get; set; }
 
         public VisualSplit(Split split)
         {
             this.split = split;
-        }
-
-        public Line GetLeftLine()
-        {
-            return this.CreateLine(leftFrom, topFrom, leftTo1, topTo1);
-        }
-
-        public Line GetRightLine()
-        {
-            return this.CreateLine(leftFrom, topFrom, leftTo2, topTo2);
         }
 
         private Line CreateLine(double leftFrom, double topFrom, double leftTo, double topTo)
@@ -86,7 +66,85 @@ namespace Tree.Visualization
             line.X2 = leftTo;
             line.Y2 = topTo;
 
+            line.StrokeThickness = 2;
+            line.Stroke = Brushes.Black;
+
+            Canvas.SetZIndex(line, -100);
             return line;
+        }
+
+        private void VisualizeInformation()
+        {
+            this.MyBorder = new Viewbox();
+
+            
+            // Calculation Position of the Box
+            double myLeft = this.IsLeft ? this.LeftFrom - Math.Abs((this.LeftTo - this.LeftFrom)) / 2 : this.LeftFrom + Math.Abs((this.LeftTo - this.LeftFrom)) / 2;
+            double myTop = this.TopFrom + Math.Abs((this.TopTo - this.TopFrom)) / 2;
+
+            Canvas.SetLeft(this.MyBorder, myLeft - VisualTreeNode.SmallNodeWidth / 2);
+            Canvas.SetTop(this.MyBorder, myTop - VisualTreeNode.SmallNodeHeight / 2);
+            this.MyBorder.Width = VisualTreeNode.SmallNodeWidth;
+            this.MyBorder.Height = VisualTreeNode.SmallNodeHeight;
+
+
+            Grid layout = new Grid();
+
+            Grid grid = new Grid();
+            Rectangle circle = new Rectangle();
+            circle.HorizontalAlignment = HorizontalAlignment.Center;
+            circle.Height = VisualTreeNode.NodeHeight;
+            circle.Fill = new SolidColorBrush(Colors.BlueViolet);
+            circle.Stroke = new SolidColorBrush(Colors.White);
+            circle.VerticalAlignment = VerticalAlignment.Center;
+            circle.Width = VisualTreeNode.NodeWidth;
+            circle.Opacity = 1;
+            Canvas.SetZIndex(circle, -5);
+
+            TextBlock block = new TextBlock();
+            block.HorizontalAlignment = HorizontalAlignment.Center;
+            block.Text = this.ToString();
+            //block.Text = "Hallo";
+            block.TextAlignment = TextAlignment.Center;
+            block.VerticalAlignment = VerticalAlignment.Center;
+            block.FontSize = 13;
+            block.Foreground = new SolidColorBrush(Colors.White);
+            grid.Children.Add(block);
+            grid.Children.Add(circle);
+            grid.MouseLeave += Grid_MouseLeave;
+            grid.MouseEnter += Grid_MouseEnter;
+
+            Canvas.SetZIndex(circle, -65);
+
+            layout.Children.Add(grid);
+
+            this.MyBorder.Child = layout;
+        }
+
+        public Line GetLine()
+        {
+            this.VisualizeInformation();
+            return this.CreateLine(this.LeftFrom, this.TopFrom, this.LeftTo, this.TopTo);
+        }
+
+
+        private void Grid_MouseEnter(object sender, MouseEventArgs e)
+        {
+            this.MyBorder.Width = VisualTreeNode.NodeWidth;
+            this.MyBorder.Height = VisualTreeNode.NodeHeight;
+            Canvas.SetZIndex(this.MyBorder, int.MaxValue);
+        }
+
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            this.MyBorder.Width = VisualTreeNode.SmallNodeWidth;
+            this.MyBorder.Height = VisualTreeNode.SmallNodeHeight;
+            Canvas.SetZIndex(this.MyBorder, 0);
+        }
+        
+        public override string ToString()
+        {
+            return this.split.ToString();
         }
     }
 }

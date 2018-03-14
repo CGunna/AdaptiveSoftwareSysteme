@@ -36,6 +36,7 @@ namespace DecisionTree.Implementation
             double entropy = this.GetEntropie();
             double bestInformationGain = -1;
             string bestFeature = "";
+            double bestValue = double.NaN;
             Node left = null;
             Node right = null;
 
@@ -87,6 +88,7 @@ namespace DecisionTree.Implementation
                         left = leftTemp;
                         right = rightTemp;
                         bestFeature = possibleFeature;
+                        bestValue = value;
                     }
                 }
             }
@@ -100,7 +102,7 @@ namespace DecisionTree.Implementation
                 }
 
                 // Store split for information Gain
-                this.OutgoingSplit = new Split(bestFeature, bestInformationGain);
+                this.OutgoingSplit = new Split(bestFeature, bestInformationGain, bestValue);
 
                 // set successors
                 this.LeftNode = left;

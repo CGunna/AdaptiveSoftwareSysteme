@@ -32,29 +32,55 @@ namespace Tree.Visualization
             // create VisualTreeNode for RootNode
             VisualTreeNode root = new VisualTreeNode(this.tree.RootNode);
 
-            this.DrawNode(root, (this.canvas.ActualWidth / 2) - VisualTreeNode.NodeWidth / 2, 10);
+            this.DrawNode(
+                root, 
+                (this.canvas.ActualWidth / 2) - VisualTreeNode.NodeWidth / 2, 
+                10, 
+                2.5);
         }
 
-        private void DrawNode(VisualTreeNode node, double left, double top)
+        private void DrawNode(VisualTreeNode node, double left, double top, double divisor)
         {
             node.Left = left;
             node.Top = top;
 
+            node.BuildSplits();
             // Draw Node
             this.canvas.Children.Add(node.MyBorder);
-
             // TODO Draw Lines
+            //this.canvas.Children.Add(node.)
+
             if (node.node.LeftNode != null)
             {
+                VisualSplit leftSplit = node.OutgoingSplits[0];
+                leftSplit.LeftFrom = left;
+                leftSplit.TopFrom = top;
+
+                leftSplit.LeftTo = left - left / divisor;
+                leftSplit.TopTo = top + 100;
+
+                this.canvas.Children.Add(leftSplit.GetLine());
+                this.canvas.Children.Add(leftSplit.MyBorder);
+
                 VisualTreeNode leftNode = new VisualTreeNode(node.node.LeftNode);
-                double newLeft = left - ((leftNode.OldLeft == 0 ? left : leftNode.OldLeft) - left) / 2.1;
-                this.DrawNode(leftNode, newLeft, top + 100);
+                this.DrawNode(leftNode, left - left / divisor, top + 100, divisor * 2);
             }
 
             if (node.node.RightNode != null)
             {
+                VisualSplit rightSplit = node.OutgoingSplits[1];
+                rightSplit.LeftFrom = left;
+                rightSplit.TopFrom = top;
+
+                rightSplit.LeftTo = left + left / divisor;
+                rightSplit.TopTo = top + 100;
+                this.canvas.Children.Add(rightSplit.GetLine());
+                this.canvas.Children.Add(rightSplit.MyBorder);
+
+
+
                 VisualTreeNode rightNode = new VisualTreeNode(node.node.RightNode);
-                this.DrawNode(rightNode, left + left / 2.1 + VisualTreeNode.NodeWidth / 2, top + 100);
+                this.DrawNode(rightNode, left + left / divisor, top + 100, divisor * 2);
             }
         }
     }

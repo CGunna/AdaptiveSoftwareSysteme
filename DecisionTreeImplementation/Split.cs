@@ -12,10 +12,18 @@ namespace DecisionTree.Implementation
 
         public string FeatureName { get; set; }
 
-        public Split(string featureName, double informationGain)
+        public double Value { get; set; }
+
+        public Split(string featureName, double informationGain, double value)
         {
             this.InformationGain = informationGain;
             this.FeatureName = featureName;
+            this.Value = value;
+        }
+
+        public override string ToString()
+        {
+            return $"Feature: {this.FeatureName}\r\nAt value: {this.Value}\r\nInformation Gain: {Math.Round(this.InformationGain, 3)}";
         }
     }
 }
