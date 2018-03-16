@@ -124,7 +124,9 @@ namespace DecisionTree.Implementation
 
                 if (fraction != 0)
                 {
-                    entropie += (-1 * (fraction)) * Math.Log(fraction, this.tree.ExistingClasses.Count);
+                    //entropie += (-1 * (fraction)) * Math.Log(fraction, this.tree.ExistingClasses.Count);
+
+                    entropie += (-1 * (fraction)) * Math.Log(fraction, 2);
                 }
             }
 
