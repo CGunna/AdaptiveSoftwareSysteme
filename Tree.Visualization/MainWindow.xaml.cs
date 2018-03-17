@@ -21,6 +21,8 @@ namespace Tree.Visualization
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MyDecisionTree tree;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,13 +30,27 @@ namespace Tree.Visualization
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            ExampleFactory factory = new ExampleFactory();
-            MyDecisionTree tree = new MyDecisionTree(factory.GetIrisExamples());
+        }
 
-            tree.RootNode.TrySplit();
+        private void RecalculateButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.TreeCanvas.Children.Clear();
 
-            DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
-            renderer.Visualize();
+            int dimension = 0;
+            if (int.TryParse(this.DimensionBox.Text, out dimension))
+            {
+                ExampleFactory factory = new ExampleFactory(dimension);
+                this.tree = new MyDecisionTree(factory.GetIrisExamples());
+
+                this.tree.RootNode.TrySplit();
+
+                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(this.tree, this.TreeCanvas);
+                renderer.Visualize();
+            }
+            else
+            {
+                MessageBox.Show("Dimension has to be an integer number!");
+            }
         }
     }
 }

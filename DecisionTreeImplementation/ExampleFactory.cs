@@ -9,6 +9,13 @@ namespace DecisionTree.Implementation
 {
     public class ExampleFactory
     {
+        private readonly int dimensions;
+
+        public ExampleFactory(int dimensions = 2)
+        {
+            this.dimensions = dimensions;
+        }
+
         public IDecisionTreeExampleData GetIrisExamples()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Short.csv");
@@ -16,7 +23,7 @@ namespace DecisionTree.Implementation
 
         private IDecisionTreeExampleData GetDecisionTreeExample(string csvPath)
         {
-            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData();
+            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
 
             try
             {

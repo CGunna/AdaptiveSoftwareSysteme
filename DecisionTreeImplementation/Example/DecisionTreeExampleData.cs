@@ -17,11 +17,11 @@ namespace DecisionTree.Implementation
 
         public int Dimensions { get => this.dimensions; }
 
-        public DecisionTreeExampleData()
+        public DecisionTreeExampleData(int dimensions)
         {
             this.features = new List<IFeature>();
             this.exampleRows = new List<IExampleRow>();
-            this.dimensions = 2;
+            this.dimensions = dimensions;
         }
     }
 }

@@ -54,6 +54,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MathConverter.cs" />
     <Compile Include="TreeVisualizationObject.cs" />
     <Compile Include="VisualSplit.cs" />
     <Compile Include="VisualTreeNode.cs" />

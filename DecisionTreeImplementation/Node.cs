@@ -19,6 +19,9 @@ namespace DecisionTree.Implementation
 
         public Node RightNode { get; set; }
 
+        public bool IsLeaf => this.OutgoingSplit == null;
+
+
         public Node(MyDecisionTree tree)
         {
             this.tree = tree;
@@ -135,16 +138,23 @@ namespace DecisionTree.Implementation
 
         public override string ToString()
         {
-            string s = string.Empty;
-
-            foreach (var availableClass in this.tree.ExistingClasses)
+            if (this.IsLeaf)
             {
-                s += $"{availableClass}: ({this.Population.Count(x => x.Class == availableClass)}/{this.Population.Count})";
-                s += Environment.NewLine;
+                return this.Population.Max(x => x.Class);
             }
+            else
+            {
+                string s = string.Empty;
 
-            s += $"Entropie: {Math.Round(this.GetEntropie(), 2)}";
-            return s;
+                foreach (var availableClass in this.tree.ExistingClasses)
+                {
+                    s += $"{availableClass}: ({this.Population.Count(x => x.Class == availableClass)}/{this.Population.Count})";
+                    s += Environment.NewLine;
+                }
+
+                s += $"Entropie: {Math.Round(this.GetEntropie(), 2)}";
+                return s;
+            }
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Tree.Visualization
 
         public readonly Node node;
 
-        public bool IsLeaf => node.OutgoingSplit == null;
+        public bool IsLeaf => this.node.IsLeaf;
 
         public VisualTreeNode(Node actualNode)
         {
