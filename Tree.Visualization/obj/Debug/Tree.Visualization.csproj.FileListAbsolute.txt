@@ -17,3 +17,4 @@ C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualizati
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.exe
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.pdb
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.csproj.CopyComplete

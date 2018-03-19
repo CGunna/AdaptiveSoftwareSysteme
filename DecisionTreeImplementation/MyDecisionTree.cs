@@ -62,5 +62,10 @@ namespace DecisionTree.Implementation
         {
             return GetLen(this.rootNode);
         }
+
+        public void Prune()
+        {
+
+        }
     }
 }

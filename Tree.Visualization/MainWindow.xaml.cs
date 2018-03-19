@@ -34,11 +34,10 @@ namespace Tree.Visualization
 
         private void RecalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            this.TreeCanvas.Children.Clear();
-
-            int dimension = 0;
-            if (int.TryParse(this.DimensionBox.Text, out dimension))
+            if (int.TryParse(this.DimensionBox.Text, out int dimension))
             {
+                this.TreeCanvas.Children.Clear();
+
                 ExampleFactory factory = new ExampleFactory(dimension);
                 this.tree = new MyDecisionTree(factory.GetIrisExamples());
 

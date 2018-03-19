@@ -24,6 +24,8 @@ namespace IKriv.Wpf
     /// Arguments of multi value converter may be referred as x,y,z,t (first-fourth argument), or a,b,c,d, or {0}, {1}, {2}, {3}, {4}, ...
     /// The converter supports arithmetic expressions of arbitrary complexity, including nested subexpressions
     /// </remarks>
+    /// Taken from https://www.ikriv.com/dev/wpf/MathConverter/index
+    /// Thanks to Ivan Krivyakov!
     public class MathConverter :
 #if !SILVERLIGHT
         MarkupExtension,
