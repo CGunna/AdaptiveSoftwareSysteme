@@ -18,7 +18,12 @@ namespace DecisionTree.Implementation
 
         public IDecisionTreeExampleData GetIrisExamples()
         {
-            return this.GetDecisionTreeExample(@"Examples\iris_Short.csv");
+            return this.GetDecisionTreeExample(@"Examples\iris_Training.csv");
+        }
+
+        public IDecisionTreeExampleData GetIrisTestSet()
+        {
+            return this.GetDecisionTreeExample(@"Examples\iris_Test.csv");
         }
 
         private IDecisionTreeExampleData GetDecisionTreeExample(string csvPath)

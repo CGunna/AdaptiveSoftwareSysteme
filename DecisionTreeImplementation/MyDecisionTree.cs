@@ -63,9 +63,24 @@ namespace DecisionTree.Implementation
             return GetLen(this.rootNode);
         }
 
-        public void Prune()
+        public void Split()
         {
+            this.rootNode.TrySplit();
+        }
 
+        public void Prune(IDecisionTreeExampleData testSet)
+        {
+            if (this.GetTreeHeight() > 1)
+            {
+                foreach (var example in testSet.ExampleRows)
+                {
+                    this.rootNode.CareForTestExample(example);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Tree Height has to be higher than 1!");
+            }
         }
     }
 }

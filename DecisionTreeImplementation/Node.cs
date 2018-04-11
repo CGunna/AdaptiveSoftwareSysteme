@@ -8,7 +8,6 @@ namespace DecisionTree.Implementation
 {
     public class Node
     {
-
         private readonly MyDecisionTree tree;
 
         public ICollection<IExampleRow> Population { get; set; }
@@ -21,7 +20,6 @@ namespace DecisionTree.Implementation
 
         public bool IsLeaf => this.OutgoingSplit == null;
 
-
         public Node(MyDecisionTree tree)
         {
             this.tree = tree;
@@ -33,7 +31,7 @@ namespace DecisionTree.Implementation
             this.Population = population.OrderBy(x => x.Class).ToList();
         }
 
-        public void TrySplit()
+        internal void TrySplit()
         {
             // declare temp values
             double entropy = this.GetEntropie();
@@ -115,7 +113,31 @@ namespace DecisionTree.Implementation
                 this.LeftNode.TrySplit();
                 this.RightNode.TrySplit();
             }
-        }              
+        }
+
+        internal void CareForTestExample(IExampleRow example)
+        {
+            if (!this.IsLeaf)
+            {
+                // Compare Values of the Feature of the current split
+                if (example.Items.Where(x =>
+                    x.RelatedFeature.Name == this.OutgoingSplit.FeatureName).Single().Value
+                    <= this.OutgoingSplit.Value)
+                {
+                    // If smaller equal -> recursion to the left
+                    this.LeftNode.CareForTestExample(example);
+                }
+                else
+                {
+                    // If greater -> recursion to the right
+                    this.RightNode.CareForTestExample(example);
+                }
+            }
+            else
+            {
+                example.ClassifiedAs = this.ToString();   
+            }
+        }
 
         public double GetEntropie()
         {

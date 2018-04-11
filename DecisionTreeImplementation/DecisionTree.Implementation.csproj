@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gardener.cs" />
     <Compile Include="MyDecisionTree.cs" />
     <Compile Include="Example\DecisionTreeExampleData.cs" />
     <Compile Include="Example\Example.cs" />

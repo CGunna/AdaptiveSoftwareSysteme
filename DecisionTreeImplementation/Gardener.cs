@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    public interface IExampleRow
+    public class Gardener
     {
-        string Class { get; }
 
-        List<IExample> Items { get; }
-
-        string ClassifiedAs { get; set; }
     }
 }

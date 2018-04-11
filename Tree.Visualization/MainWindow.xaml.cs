@@ -41,10 +41,14 @@ namespace Tree.Visualization
                 ExampleFactory factory = new ExampleFactory(dimension);
                 this.tree = new MyDecisionTree(factory.GetIrisExamples());
 
-                this.tree.RootNode.TrySplit();
+                this.tree.Split();
 
                 DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(this.tree, this.TreeCanvas);
                 renderer.Visualize();
+
+                var examples = factory.GetIrisTestSet();
+
+                this.tree.Prune(examples);
             }
             else
             {
