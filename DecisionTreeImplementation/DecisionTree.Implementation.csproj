@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gardener.cs" />
+    <Compile Include="Example\ClassificationResult.cs" />
+    <Compile Include="Interfaces\IClassificationResult.cs" />
+    <Compile Include="Interfaces\IGardener.cs" />
     <Compile Include="MyDecisionTree.cs" />
     <Compile Include="Example\DecisionTreeExampleData.cs" />
     <Compile Include="Example\Example.cs" />
@@ -58,6 +60,7 @@
     <Compile Include="Interfaces\IFeature.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReducedErrorPruning.cs" />
     <Compile Include="Split.cs" />
   </ItemGroup>
   <ItemGroup>

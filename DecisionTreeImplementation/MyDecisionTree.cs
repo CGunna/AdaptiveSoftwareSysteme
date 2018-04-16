@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace DecisionTree.Implementation
         private Node rootNode;
         private List<string> existingClasses;
         private List<string> existingFeatures;
+        private List<Node> leaves;
 
         public Node RootNode { get => this.rootNode; }
 
@@ -21,6 +23,7 @@ namespace DecisionTree.Implementation
         {
             this.existingClasses = new List<string>();
             this.existingFeatures = new List<string>();
+            this.leaves = new List<Node>();
 
             foreach (var exampleRow in exampleData.ExampleRows)
             {
@@ -68,18 +71,42 @@ namespace DecisionTree.Implementation
             this.rootNode.TrySplit();
         }
 
-        public void Prune(IDecisionTreeExampleData testSet)
+        public void ValidateTestSet(IDecisionTreeExampleData testSet)
         {
-            if (this.GetTreeHeight() > 1)
+            foreach (var example in testSet.ExampleRows)
             {
-                foreach (var example in testSet.ExampleRows)
-                {
-                    this.rootNode.CareForTestExample(example);
-                }
+                this.rootNode.CareForTestExample(example);
             }
+        }
+
+        public IEnumerable<Node> GetLeafes()
+        {
+            if (this.leaves == null)
+                this.leaves = new List<Node>();
             else
+                this.leaves.Clear();
+
+            this.GetLeaf(this.RootNode);
+
+            foreach (Node leaf in this.leaves)
+                yield return leaf;
+        }
+
+        private void GetLeaf(Node start)
+        {
+            if (start.IsLeaf)
             {
-                throw new ArgumentException("Tree Height has to be higher than 1!");
+                this.leaves.Add(start);
+            }
+
+            if (start.LeftNode != null)
+            {
+                this.GetLeaf(start.LeftNode);
+            }
+
+            if (start.RightNode != null)
+            {
+                this.GetLeaf(start.RightNode);
             }
         }
     }

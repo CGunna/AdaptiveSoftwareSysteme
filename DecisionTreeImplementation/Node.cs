@@ -18,7 +18,9 @@ namespace DecisionTree.Implementation
 
         public Node RightNode { get; set; }
 
-        public bool IsLeaf => this.OutgoingSplit == null;
+        public Node Parent { get; set; }
+
+        public bool IsLeaf => this.LeftNode == null && this.RightNode == null;
 
         public Node(MyDecisionTree tree)
         {
@@ -29,6 +31,12 @@ namespace DecisionTree.Implementation
             : this(tree)
         {
             this.Population = population.OrderBy(x => x.Class).ToList();
+        }
+
+        public Node(MyDecisionTree tree, ICollection<IExampleRow> population, Node parent)
+            : this(tree, population)
+        {
+            this.Parent = parent;
         }
 
         internal void TrySplit()
@@ -69,8 +77,8 @@ namespace DecisionTree.Implementation
                     }
 
                     // Create new Nodes
-                    Node leftTemp = new Node(this.tree, smallerEqual);
-                    Node rightTemp = new Node(this.tree, greater);
+                    Node leftTemp = new Node(this.tree, smallerEqual, this);
+                    Node rightTemp = new Node(this.tree, greater, this);
 
                     // step by step
                     double entropyP1 = leftTemp.GetEntropie();
@@ -117,6 +125,7 @@ namespace DecisionTree.Implementation
 
         internal void CareForTestExample(IExampleRow example)
         {
+
             if (!this.IsLeaf)
             {
                 // Compare Values of the Feature of the current split
@@ -125,17 +134,20 @@ namespace DecisionTree.Implementation
                     <= this.OutgoingSplit.Value)
                 {
                     // If smaller equal -> recursion to the left
-                    this.LeftNode.CareForTestExample(example);
+                    this.LeftNode?.CareForTestExample(example);
                 }
                 else
                 {
                     // If greater -> recursion to the right
-                    this.RightNode.CareForTestExample(example);
+                    this.RightNode?.CareForTestExample(example);
                 }
             }
             else
             {
-                example.ClassifiedAs = this.ToString();   
+                IClassificationResult result = new ClassificationResult(example);
+                result.ClassifiedAs = this.ToString();
+
+                example.Classification = result;
             }
         }
 

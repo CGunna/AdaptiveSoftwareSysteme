@@ -43,12 +43,16 @@ namespace Tree.Visualization
 
                 this.tree.Split();
 
+                if (this.PruneBox.IsChecked == true)
+                {
+                    IGardener pruner = new ReducedErrorPruning();
+                    var examples = factory.GetIrisTestSet();
+
+                    pruner.Prune(tree, examples);
+                }
+
                 DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(this.tree, this.TreeCanvas);
                 renderer.Visualize();
-
-                var examples = factory.GetIrisTestSet();
-
-                this.tree.Prune(examples);
             }
             else
             {

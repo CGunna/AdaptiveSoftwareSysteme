@@ -14,7 +14,8 @@ namespace DecisionTree.Implementation
         public List<IExample> Items { get => this.items; }
 
         public string Class { get => this.className; set => this.className = value; }
-        public string ClassifiedAs { get; set; }
+
+        public IClassificationResult Classification { get; set; }
 
         public ExampleRow(string className)
             : this()

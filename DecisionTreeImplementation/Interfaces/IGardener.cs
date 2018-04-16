@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    public interface IExampleRow
+    public interface IGardener
     {
-        string Class { get; }
-
-        List<IExample> Items { get; }
-
-        IClassificationResult Classification { get; set; }
+        MyDecisionTree Prune(MyDecisionTree tree, IDecisionTreeExampleData testSet);
     }
 }
