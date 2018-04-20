@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,23 +6,15 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    public class MyDecisionTree : Tree
+    public class MyRegressionTree : Tree
     {
-        private List<string> existingClasses;
-
-        public ICollection<string> ExistingClasses { get => this.existingClasses; }
-
-        public MyDecisionTree(IDecisionTreeExampleData exampleData)
+        public MyRegressionTree(IDecisionTreeExampleData exampleData)
         {
-            this.existingClasses = new List<string>();
             this.existingFeatures = new List<string>();
             this.leaves = new List<Node>();
 
             foreach (var exampleRow in exampleData.ExampleRows)
             {
-                if (!this.existingClasses.Contains(exampleRow.Class))
-                    this.existingClasses.Add(exampleRow.Class);
-
                 foreach (var example in exampleRow.Items)
                 {
                     // only get as many possible Features as are defined in the dimensions 
@@ -36,7 +27,7 @@ namespace DecisionTree.Implementation
                 }
             }
 
-            this.rootNode = new DecisionTreeNode(this, exampleData.ExampleRows);
+            this.rootNode = new RegressionTreeNode(this, exampleData.ExampleRows, null);
         }
     }
 }

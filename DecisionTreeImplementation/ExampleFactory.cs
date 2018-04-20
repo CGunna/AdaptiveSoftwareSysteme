@@ -16,6 +16,77 @@ namespace DecisionTree.Implementation
             this.dimensions = dimensions;
         }
 
+        public IDecisionTreeExampleData GetCarExamples()
+        {
+            return this.GetRegressionTreeExample(@"Examples\cars_Training.csv");
+        }
+
+        private IDecisionTreeExampleData GetRegressionTreeExample(string csvPath)
+        {
+            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
+
+            try
+            {
+                var lines = File.ReadAllLines(csvPath).Select(x => x.Split(';')).ToArray();
+                int estimationColumn = -1;
+                // We assume that the first row contains the feature names
+                // The rest should be the examples
+                for (int i = 0; i < lines.Length; i++) // Rows
+                {
+                    // Feature
+                    if (i == 0)
+                    {
+                        // filter empty columns
+                        var line = lines[i].Where(x => x != string.Empty).ToArray();
+
+                        estimationColumn = line.Length;
+                        // Columns
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            decisionTreeExample.Features.Add(new Feature(line[j]));
+                        }
+                    }
+                    else // Example
+                    {
+                        if (estimationColumn <= 0)
+                            throw new ArgumentException("CSV has to have an estimation column!");
+
+                        // filter empty columns
+                        var line = lines[i].Where(x => x != string.Empty).ToArray();
+
+                        string className = string.Empty;
+                        // Create row
+                        ExampleRow row = new ExampleRow();
+
+                        // Columns
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            if (j == estimationColumn)
+                                className = line[j];
+                            else
+                                // Add Items to row
+                                row.Items.Add(new Example(decisionTreeExample.Features[j], double.Parse(line[j])));
+                        }
+
+                        row.Class = className;
+                        decisionTreeExample.ExampleRows.Add(row);
+                    }
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                // Todo: Error Handling
+                throw e;
+            }
+            catch (IOException e)
+            {
+                // Todo: Error Handling
+                throw e;
+            }
+
+            return decisionTreeExample;
+        }
+
         public IDecisionTreeExampleData GetIrisExamples()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Training.csv");

@@ -21,8 +21,7 @@ namespace Tree.Visualization
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MyDecisionTree tree;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -39,20 +38,35 @@ namespace Tree.Visualization
                 this.TreeCanvas.Children.Clear();
 
                 ExampleFactory factory = new ExampleFactory(dimension);
-                this.tree = new MyDecisionTree(factory.GetIrisExamples());
+                var decisiontree = new MyDecisionTree(factory.GetIrisExamples());
 
-                this.tree.Split();
+                decisiontree.Split();
 
                 if (this.PruneBox.IsChecked == true)
                 {
                     IGardener pruner = new ReducedErrorPruning();
                     var examples = factory.GetIrisTestSet();
 
-                    pruner.Prune(tree, examples);
+                    pruner.Prune(decisiontree, examples);
                 }
 
-                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(this.tree, this.TreeCanvas);
+                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(decisiontree, this.TreeCanvas);
                 renderer.Visualize();
+            }
+            else
+            {
+                MessageBox.Show("Dimension has to be an integer number!");
+            }
+        }
+
+        private void RecalculateRegressionTreeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.TryParse(this.DimensionBox.Text, out int dimension))
+            {
+                this.TreeCanvas.Children.Clear();
+
+                ExampleFactory factory = new ExampleFactory(dimension);
+                var regressionTree = new MyRegressionTree(factory.GetCarExamples());
             }
             else
             {

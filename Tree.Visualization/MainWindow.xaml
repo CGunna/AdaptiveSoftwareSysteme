@@ -28,7 +28,8 @@
                     <CheckBox x:Name="PruneBox" Margin="5, 0"></CheckBox>
                 </StackPanel>
                 <StackPanel Grid.Column="2" Margin="10">
-                    <Button x:Name="RecalculateButton" Click="RecalculateButton_Click" Width="150">Create tree</Button>
+                    <Button Margin="0, 0, 0, 5" x:Name="RecalculateDecisionTreeButton" Click="RecalculateButton_Click" Width="150">Create decision tree</Button>
+                    <Button x:Name="RecalculateRegressionTreeButton" Click="RecalculateRegressionTreeButton_Click" Width="150">Create regression tree</Button>
                 </StackPanel>
             </Grid>
         </Border>

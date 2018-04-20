@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecisionTreeNode.cs" />
     <Compile Include="Example\ClassificationResult.cs" />
     <Compile Include="Interfaces\IClassificationResult.cs" />
     <Compile Include="Interfaces\IGardener.cs" />
@@ -58,10 +59,13 @@
     <Compile Include="Interfaces\IExample.cs" />
     <Compile Include="Interfaces\IExampleRow.cs" />
     <Compile Include="Interfaces\IFeature.cs" />
+    <Compile Include="MyRegressionTree.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReducedErrorPruning.cs" />
+    <Compile Include="RegressionTreeNode.cs" />
     <Compile Include="Split.cs" />
+    <Compile Include="Tree.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
