@@ -18,13 +18,13 @@ namespace DecisionTree.Implementation
 
         public IDecisionTreeExampleData GetCarExamples()
         {
-            return this.GetRegressionTreeExample(@"Examples\cars_Training.csv");
+            return this.GetRegressionTreeExample(@"Examples\cars_TrainingLimShort.csv");
         }
 
         private IDecisionTreeExampleData GetRegressionTreeExample(string csvPath)
         {
             IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
-
+            string estimationItemName = string.Empty;
             try
             {
                 var lines = File.ReadAllLines(csvPath).Select(x => x.Split(';')).ToArray();
@@ -44,6 +44,11 @@ namespace DecisionTree.Implementation
                         for (int j = 0; j < line.Length; j++)
                         {
                             decisionTreeExample.Features.Add(new Feature(line[j]));
+
+                            if (j == estimationColumn - 1)
+                            {
+                                estimationItemName = line[j];
+                            }
                         }
                     }
                     else // Example
@@ -61,14 +66,10 @@ namespace DecisionTree.Implementation
                         // Columns
                         for (int j = 0; j < line.Length; j++)
                         {
-                            if (j == estimationColumn)
-                                className = line[j];
-                            else
-                                // Add Items to row
-                                row.Items.Add(new Example(decisionTreeExample.Features[j], double.Parse(line[j])));
+                            row.Items.Add(new Example(decisionTreeExample.Features[j], double.Parse(line[j])));
                         }
 
-                        row.Class = className;
+                        row.Class = estimationItemName;
                         decisionTreeExample.ExampleRows.Add(row);
                     }
                 }

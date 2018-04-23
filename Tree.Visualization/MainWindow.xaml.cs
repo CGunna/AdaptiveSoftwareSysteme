@@ -67,6 +67,9 @@ namespace Tree.Visualization
 
                 ExampleFactory factory = new ExampleFactory(dimension);
                 var regressionTree = new MyRegressionTree(factory.GetCarExamples());
+                regressionTree.Split();
+
+
             }
             else
             {
