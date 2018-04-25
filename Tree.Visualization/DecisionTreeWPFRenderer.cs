@@ -19,9 +19,9 @@ namespace Tree.Visualization
     class DecisionTreeWPFRenderer
     {
         private Canvas canvas;
-        private MyDecisionTree tree;
+        private DecisionTree.Implementation.Tree tree;
 
-        public DecisionTreeWPFRenderer(MyDecisionTree tree, Canvas canvas)
+        public DecisionTreeWPFRenderer(DecisionTree.Implementation.Tree tree, Canvas canvas)
         {
             this.tree = tree;
             this.canvas = canvas;

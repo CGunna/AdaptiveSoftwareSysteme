@@ -14,15 +14,9 @@ namespace DecisionTree.Implementation
 
         }
 
-        public override Node CreateSuccesor(Tree tree, ICollection<IExampleRow> population, Node parent)
-        {
-            return new RegressionTreeNode(tree, population, parent);
-        }
+        public override Node CreateSuccesor(Tree tree, ICollection<IExampleRow> population, Node parent) => new RegressionTreeNode(tree, population, parent);
 
-        public override double GetConstantValue()
-        {
-            return this.GetMeanOfResponses();
-        }
+        public override double GetConstantValue() => this.GetMeanOfResponses();
 
         private double GetMeanOfResponses()
         {
@@ -116,22 +110,76 @@ namespace DecisionTree.Implementation
 
             if (left != null && right != null)
             {
-                // Recursion terminition condition
-                if (this.Population.Count == 1)
+                if (smallestLeftDeviance != 0)
                 {
-                    return;
+                    // Store split for information Gain
+                    this.OutgoingSplit = new RegressionTreeSplit(bestFeature, bestValue, smallestLeftDeviance, smallestRightDeviance);
+
+                    // set successors
+                    this.LeftNode = left;
+                    this.RightNode = right;
+
+                    // Recursive Call
+                    this.LeftNode.TrySplit();
                 }
 
-                // Store split for information Gain
-                this.OutgoingSplit = new Split(bestFeature, smallestLeftDeviance + smallestRightDeviance, bestValue);
+                if (smallestRightDeviance != 0)
+                {
+                    // Store split for information Gain
+                    this.OutgoingSplit = new RegressionTreeSplit(bestFeature, bestValue, smallestLeftDeviance, smallestRightDeviance);
 
-                // set successors
-                this.LeftNode = left;
-                this.RightNode = right;
+                    // set successors
+                    this.LeftNode = left;
+                    this.RightNode = right;
 
-                // Recursive Call
-                this.LeftNode.TrySplit();
-                this.RightNode.TrySplit();
+                    // Recursive Call
+                    this.RightNode.TrySplit();
+                }
+
+                // Recursion terminition
+                return;
+            }
+        }
+
+        public override string ToString()
+        {
+            if (this.IsLeaf)
+            {
+                return $"{this.Population.First().Class}: {Math.Round(this.GetConstantValue(), 2)}" + (this.Population.Count > 1 ? $"\r\nPopulation: {this.Population.Count}" : ""); ;
+            }
+            else
+            {
+                string s = string.Empty;
+                s += $"Population: {this.Population.Count}\r\n";
+                s += $"MOR: {Math.Round(this.GetConstantValue(), 2)}";
+                return s;
+            }
+        }
+
+        public override void CareForTestExample(IExampleRow example)
+        {
+            if (!this.IsLeaf)
+            {
+                // Compare Values of the Feature of the current split
+                if (example.Items.Where(x =>
+                    x.RelatedFeature.Name == this.OutgoingSplit.FeatureName).Single().Value
+                    <= this.OutgoingSplit.Value)
+                {
+                    // If smaller equal -> recursion to the left
+                    this.LeftNode?.CareForTestExample(example);
+                }
+                else
+                {
+                    // If greater -> recursion to the right
+                    this.RightNode?.CareForTestExample(example);
+                }
+            }
+            else
+            {
+                IClassificationResult result = new ClassificationResult(example);
+                result.ClassifiedAs = this.ToString();
+
+                example.Classification = result;
             }
         }
     }

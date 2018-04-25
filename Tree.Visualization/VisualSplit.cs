@@ -113,7 +113,7 @@ namespace Tree.Visualization
 
         public override string ToString()
         {
-            return this.split.ToString();
+            return this.split.ToString(this.IsLeft);
         }
     }
 }

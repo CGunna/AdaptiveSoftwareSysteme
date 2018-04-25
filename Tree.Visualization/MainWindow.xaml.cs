@@ -69,7 +69,14 @@ namespace Tree.Visualization
                 var regressionTree = new MyRegressionTree(factory.GetCarExamples());
                 regressionTree.Split();
 
+                if (this.PruneBox.IsChecked == true)
+                {
+                    var examples = factory.GetCarTestSet();
+                    regressionTree.ValidateTestSet(examples);
+                }
 
+                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(regressionTree, this.TreeCanvas);
+                renderer.Visualize();
             }
             else
             {

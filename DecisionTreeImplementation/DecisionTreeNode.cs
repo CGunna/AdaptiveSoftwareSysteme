@@ -46,7 +46,7 @@ namespace DecisionTree.Implementation
         {
             if (this.IsLeaf)
             {
-                return this.Population.Max(x => x.Class);
+                return this.Population.Max(x => x.Class) + (this.Population.Count > 1 ? $"\r\nPopulation: {this.Population.Count}" : "");
             }
             else
             {
@@ -83,6 +83,34 @@ namespace DecisionTree.Implementation
             informationGain = this.GetConstantValue() - sAfter;
 
             return informationGain;
+        }
+
+
+        public override void CareForTestExample(IExampleRow example)
+        {
+            if (!this.IsLeaf)
+            {
+                // Compare Values of the Feature of the current split
+                if (example.Items.Where(x =>
+                    x.RelatedFeature.Name == this.OutgoingSplit.FeatureName).Single().Value
+                    <= this.OutgoingSplit.Value)
+                {
+                    // If smaller equal -> recursion to the left
+                    this.LeftNode?.CareForTestExample(example);
+                }
+                else
+                {
+                    // If greater -> recursion to the right
+                    this.RightNode?.CareForTestExample(example);
+                }
+            }
+            else
+            {
+                IClassificationResult result = new ClassificationResult(example);
+                result.ClassifiedAs = this.ToString();
+
+                example.Classification = result;
+            }
         }
 
         public override void TrySplit()
@@ -150,7 +178,7 @@ namespace DecisionTree.Implementation
                 }
 
                 // Store split for information Gain
-                this.OutgoingSplit = new Split(bestFeature, bestInformationGain, bestValue);
+                this.OutgoingSplit = new DecisionTreeSplit(bestFeature, bestInformationGain, bestValue);
 
                 // set successors
                 this.LeftNode = left;

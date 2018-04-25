@@ -18,7 +18,12 @@ namespace DecisionTree.Implementation
 
         public IDecisionTreeExampleData GetCarExamples()
         {
-            return this.GetRegressionTreeExample(@"Examples\cars_TrainingLimShort.csv");
+            return this.GetRegressionTreeExample(@"Examples\cars_TrainingLim.csv");
+        }
+
+        public IDecisionTreeExampleData GetCarTestSet()
+        {
+            return this.GetRegressionTreeExample(@"Examples\cars_Test.csv");
         }
 
         private IDecisionTreeExampleData GetRegressionTreeExample(string csvPath)
