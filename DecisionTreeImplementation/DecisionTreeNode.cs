@@ -107,7 +107,7 @@ namespace DecisionTree.Implementation
             else
             {
                 IClassificationResult result = new ClassificationResult(example);
-                result.ClassifiedAs = this.ToString();
+                result.ClassifiedAs = this.Population.Max(x => x.Class);
 
                 example.Classification = result;
             }

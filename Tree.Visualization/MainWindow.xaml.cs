@@ -21,7 +21,7 @@ namespace Tree.Visualization
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,59 +33,48 @@ namespace Tree.Visualization
 
         private void RecalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(this.DimensionBox.Text, out int dimension))
-            {
-                this.TreeCanvas.Children.Clear();
+            ExampleFactory factory = new ExampleFactory(this.GetDimension());
+            MyDecisionTree tree = new MyDecisionTree(factory.GetIrisExamples());
+            IGardener gardener = new ReducedErrorPruningForDecisionTrees(tree);
 
-                ExampleFactory factory = new ExampleFactory(dimension);
-                var decisiontree = new MyDecisionTree(factory.GetIrisExamples());
-
-                decisiontree.Split();
-
-                if (this.PruneBox.IsChecked == true)
-                {
-                    IGardener pruner = new ReducedErrorPruningForDecisionTrees(decisiontree);
-                    var examples = factory.GetIrisTestSet();
-
-                    pruner.Prune(decisiontree, examples);
-                }
-
-                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(decisiontree, this.TreeCanvas);
-                renderer.Visualize();
-            }
-            else
-            {
-                MessageBox.Show("Dimension has to be an integer number!");
-            }
+            this.Split(tree, gardener, factory.GetIrisTestSet());
         }
 
         private void RecalculateRegressionTreeButton_Click(object sender, RoutedEventArgs e)
         {
+            ExampleFactory factory = new ExampleFactory(this.GetDimension());
+            MyRegressionTree tree = new MyRegressionTree(factory.GetCarExamples());
+            IGardener gardener = new ReducedErrorPruningForRegressionTrees(tree, 7);
+
+            this.Split(tree, gardener, factory.GetCarTestSet());
+        }
+
+        private int GetDimension()
+        {
             if (int.TryParse(this.DimensionBox.Text, out int dimension))
             {
-                this.TreeCanvas.Children.Clear();
-
-                ExampleFactory factory = new ExampleFactory(dimension);
-                var regressionTree = new MyRegressionTree(factory.GetCarExamples());
-                regressionTree.Split();
-
-                if (this.PruneBox.IsChecked == true)
-                {
-                    IGardener pruner = new ReducedErrorPruningForRegressionTrees(regressionTree, 7);
-
-                    var examples = factory.GetCarTestSet();
-                    //regressionTree.ValidateTestSet(examples);
-
-                    pruner.Prune(regressionTree, examples);
-                }
-
-                DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(regressionTree, this.TreeCanvas);
-                renderer.Visualize();
             }
             else
             {
                 MessageBox.Show("Dimension has to be an integer number!");
             }
+
+            return dimension;
+        }
+
+        private void Split(DecisionTree.Implementation.Tree tree, IGardener gardener, ITreeExampleData testdata)
+        {
+            this.TreeCanvas.Children.Clear();
+
+            tree.Split();
+
+            if (this.PruneBox.IsChecked == true)
+            {
+                gardener.Prune(tree, testdata);
+            }
+
+            DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
+            renderer.Visualize();
         }
     }
 }
