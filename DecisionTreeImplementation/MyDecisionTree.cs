@@ -13,7 +13,7 @@ namespace DecisionTree.Implementation
 
         public ICollection<string> ExistingClasses { get => this.existingClasses; }
 
-        public MyDecisionTree(IDecisionTreeExampleData exampleData)
+        public MyDecisionTree(ITreeExampleData exampleData)
         {
             this.existingClasses = new List<string>();
             this.existingFeatures = new List<string>();

@@ -10,6 +10,8 @@ namespace DecisionTree.Implementation
     {
         string ClassifiedAs { get; set; }
 
+        double Value { get; set; }
+
         IExampleRow ClassifiedRow { get; }
     }
 }

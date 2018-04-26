@@ -8,7 +8,7 @@ namespace DecisionTree.Implementation
 {
     public class MyRegressionTree : Tree
     {
-        public MyRegressionTree(IDecisionTreeExampleData exampleData)
+        public MyRegressionTree(ITreeExampleData exampleData)
         {
             this.existingFeatures = new List<string>();
             this.leaves = new List<Node>();

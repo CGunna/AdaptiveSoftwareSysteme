@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    public class ReducedErrorPruning : IGardener
+    public abstract class ReducedErrorPruning : IGardener
     {
-        public MyDecisionTree Prune(MyDecisionTree tree, IDecisionTreeExampleData testSet)
+        private readonly Tree tree;
+
+        public ReducedErrorPruning(Tree tree)
+        {
+            this.tree = tree;   
+        }
+
+        public Tree Prune(Tree mytree, ITreeExampleData testSet)
         {
             // At the beginning -> Validate Set
             // Then calculate some kind of prediction accuracy factor
@@ -18,53 +25,42 @@ namespace DecisionTree.Implementation
             {
                 tree.ValidateTestSet(testSet);
 
-                double startAccuracy = this.GetPredicitionAccuracy(tree, testSet);
+                double startAccuracy = this.GetPredicitionAccuracy(testSet);
                 changed = false;
 
-                foreach (Node leaf in tree.GetLeafes())
+                foreach (Node leaf in mytree.GetLeafes())
                 {
-                    Node leftTemp = leaf.Parent.LeftNode;
-                    Node rightTemp = leaf.Parent.RightNode;
-
-                    leaf.Parent.LeftNode = null;
-                    leaf.Parent.RightNode = null;
-
-                    tree.ValidateTestSet(testSet);
-                    double tempAccuracy = this.GetPredicitionAccuracy(tree, testSet);
-
-                    if (tempAccuracy < startAccuracy)
+                    if (leaf.Parent != null)
                     {
-                        // reverse the change
-                        leaf.Parent.LeftNode = leftTemp;
-                        leaf.Parent.RightNode = rightTemp;
-                    }
-                    else
-                    {
-                        // leave it as it is and continue
-                        leaf.Parent.OutgoingSplit = null;
-                        changed = true;
+                        Node leftTemp = leaf.Parent.LeftNode;
+                        Node rightTemp = leaf.Parent.RightNode;
+
+                        leaf.Parent.LeftNode = null;
+                        leaf.Parent.RightNode = null;
+
+                        mytree.ValidateTestSet(testSet);
+                        double tempAccuracy = this.GetPredicitionAccuracy(testSet);
+
+                        if (tempAccuracy < startAccuracy)
+                        {
+                            // reverse the change
+                            leaf.Parent.LeftNode = leftTemp;
+                            leaf.Parent.RightNode = rightTemp;
+                        }
+                        else
+                        {
+                            // leave it as it is and continue
+                            leaf.Parent.OutgoingSplit = null;
+                            changed = true;
+                        }
                     }
                 }
 
             } while (changed);
 
-            return tree;
+            return mytree;
         }
 
-        private double GetPredicitionAccuracy(MyDecisionTree tree, IDecisionTreeExampleData testSet)
-        {
-            double testExampleCount = testSet.ExampleRows.Count;
-            double deviationCount = 0;
-
-            foreach (var example in testSet.ExampleRows)
-            {
-                if (example.Classification.ClassifiedAs != example.Class)
-                {
-                    deviationCount++;
-                }
-            }
-
-            return 1 - deviationCount / testExampleCount;
-        }
+        public abstract double GetPredicitionAccuracy(ITreeExampleData testSet);
     }
 }

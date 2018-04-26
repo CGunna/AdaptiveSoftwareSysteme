@@ -44,7 +44,7 @@ namespace Tree.Visualization
 
                 if (this.PruneBox.IsChecked == true)
                 {
-                    IGardener pruner = new ReducedErrorPruning();
+                    IGardener pruner = new ReducedErrorPruningForDecisionTrees(decisiontree);
                     var examples = factory.GetIrisTestSet();
 
                     pruner.Prune(decisiontree, examples);
@@ -71,8 +71,12 @@ namespace Tree.Visualization
 
                 if (this.PruneBox.IsChecked == true)
                 {
+                    IGardener pruner = new ReducedErrorPruningForRegressionTrees(regressionTree, 7);
+
                     var examples = factory.GetCarTestSet();
-                    regressionTree.ValidateTestSet(examples);
+                    //regressionTree.ValidateTestSet(examples);
+
+                    pruner.Prune(regressionTree, examples);
                 }
 
                 DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(regressionTree, this.TreeCanvas);

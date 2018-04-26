@@ -8,6 +8,6 @@ namespace DecisionTree.Implementation
 {
     public interface IGardener
     {
-        MyDecisionTree Prune(MyDecisionTree tree, IDecisionTreeExampleData testSet);
+        Tree Prune(Tree tree, ITreeExampleData testSet);
     }
 }

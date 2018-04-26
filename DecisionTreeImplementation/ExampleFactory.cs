@@ -16,19 +16,19 @@ namespace DecisionTree.Implementation
             this.dimensions = dimensions;
         }
 
-        public IDecisionTreeExampleData GetCarExamples()
+        public ITreeExampleData GetCarExamples()
         {
             return this.GetRegressionTreeExample(@"Examples\cars_TrainingLim.csv");
         }
 
-        public IDecisionTreeExampleData GetCarTestSet()
+        public ITreeExampleData GetCarTestSet()
         {
             return this.GetRegressionTreeExample(@"Examples\cars_Test.csv");
         }
 
-        private IDecisionTreeExampleData GetRegressionTreeExample(string csvPath)
+        private ITreeExampleData GetRegressionTreeExample(string csvPath)
         {
-            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
+            ITreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
             string estimationItemName = string.Empty;
             try
             {
@@ -93,19 +93,19 @@ namespace DecisionTree.Implementation
             return decisionTreeExample;
         }
 
-        public IDecisionTreeExampleData GetIrisExamples()
+        public ITreeExampleData GetIrisExamples()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Training.csv");
         }
 
-        public IDecisionTreeExampleData GetIrisTestSet()
+        public ITreeExampleData GetIrisTestSet()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Test.csv");
         }
 
-        private IDecisionTreeExampleData GetDecisionTreeExample(string csvPath)
+        private ITreeExampleData GetDecisionTreeExample(string csvPath)
         {
-            IDecisionTreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
+            ITreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
 
             try
             {

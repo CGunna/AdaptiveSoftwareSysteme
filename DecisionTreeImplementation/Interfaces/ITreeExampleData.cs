@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    public interface IDecisionTreeExampleData
+    public interface ITreeExampleData
     {
         List<IFeature> Features { get; }
 

@@ -21,7 +21,7 @@ namespace DecisionTree.Implementation
             this.rootNode.TrySplit();
         }
 
-        public virtual void ValidateTestSet(IDecisionTreeExampleData testSet)
+        public virtual void ValidateTestSet(ITreeExampleData testSet)
         {
             foreach (var example in testSet.ExampleRows)
             {

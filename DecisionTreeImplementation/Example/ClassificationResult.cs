@@ -14,6 +14,8 @@ namespace DecisionTree.Implementation
 
         public IExampleRow ClassifiedRow => this.row;
 
+        public double Value { get; set; }
+
         public ClassificationResult(IExampleRow row)
         {
             this.row = row;

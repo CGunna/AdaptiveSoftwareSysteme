@@ -56,7 +56,7 @@
     <Compile Include="ExampleFactory.cs" />
     <Compile Include="Example\ExampleRow.cs" />
     <Compile Include="Example\Feature.cs" />
-    <Compile Include="Interfaces\IDecisionTreeExampleData.cs" />
+    <Compile Include="Interfaces\ITreeExampleData.cs" />
     <Compile Include="Interfaces\IExample.cs" />
     <Compile Include="Interfaces\IExampleRow.cs" />
     <Compile Include="Interfaces\IFeature.cs" />
@@ -64,6 +64,8 @@
     <Compile Include="Node.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReducedErrorPruning.cs" />
+    <Compile Include="ReducedErrorPruningForDecisionTrees.cs" />
+    <Compile Include="ReducedErrorPruningForRegressionTrees.cs" />
     <Compile Include="RegressionTreeNode.cs" />
     <Compile Include="RegressionTreeSplit.cs" />
     <Compile Include="Split.cs" />

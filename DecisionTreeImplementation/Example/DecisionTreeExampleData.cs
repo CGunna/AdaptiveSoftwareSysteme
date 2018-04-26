@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
-    class DecisionTreeExampleData : IDecisionTreeExampleData
+    class DecisionTreeExampleData : ITreeExampleData
     {
         private List<IFeature> features;
         private List<IExampleRow> exampleRows;

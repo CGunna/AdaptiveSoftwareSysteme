@@ -178,6 +178,7 @@ namespace DecisionTree.Implementation
             {
                 IClassificationResult result = new ClassificationResult(example);
                 result.ClassifiedAs = this.ToString();
+                result.Value = this.GetMeanOfResponses();
 
                 example.Classification = result;
             }
