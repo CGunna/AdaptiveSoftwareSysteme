@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public class DecisionTreeSplit : Split
     {
+        public DecisionTreeSplit()
+        {
+        }
+
         public DecisionTreeSplit(string featureName, double informationGain, double value) 
             : base(featureName, value)
         {

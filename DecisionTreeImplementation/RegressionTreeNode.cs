@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public class RegressionTreeNode : Node
     {
+        public RegressionTreeNode()
+        {
+        }
+
         public RegressionTreeNode(Tree tree, ICollection<IExampleRow> population, Node parent)
             : base(tree, population, parent)
         {

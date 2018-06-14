@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public abstract class Tree
     {
+        public Tree()
+        {
+        }
+
         protected Node rootNode;
         protected List<Node> leaves;
         protected List<string> existingFeatures;

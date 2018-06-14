@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public abstract class Node
     {
+        public Node()
+        {
+        }
+
         protected readonly Tree tree;
 
         public ICollection<IExampleRow> Population { get; set; }

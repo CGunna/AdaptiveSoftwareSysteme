@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public class MyRegressionTree : Tree
     {
+        public MyRegressionTree()
+        {
+        }
+
         public MyRegressionTree(ITreeExampleData exampleData)
         {
             this.existingFeatures = new List<string>();

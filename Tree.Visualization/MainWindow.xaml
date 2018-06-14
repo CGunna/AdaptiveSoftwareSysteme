@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tree.Visualization"
-        xmlns:ikriv="clr-namespace:IKriv.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200" Loaded="Window_Loaded"  >
     <Grid>
@@ -15,6 +14,7 @@
         <Border BorderBrush="Black" BorderThickness="0, 0, 0 2">
             <Grid Background="LightBlue" >
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
                     <ColumnDefinition Width="auto"></ColumnDefinition>
@@ -31,14 +31,15 @@
                     <Button Margin="0, 0, 0, 5" x:Name="RecalculateDecisionTreeButton" Click="RecalculateButton_Click" Width="150">Create decision tree</Button>
                     <Button x:Name="RecalculateRegressionTreeButton" Click="RecalculateRegressionTreeButton_Click" Width="150">Create regression tree</Button>
                 </StackPanel>
+                <StackPanel Grid.Column="3" Margin="10">
+                    <Button Margin="0, 0, 0, 5" x:Name="ImportButton" Click="ImportButton_Click" Width="150">Import tree</Button>
+                    <Button x:Name="ExportButton" Click="ExportButton_Click" Width="150">Export tree</Button>
+                </StackPanel>
             </Grid>
         </Border>
         <Canvas Grid.Row="1" x:Name="TreeCanvas" Background="LightGoldenrodYellow">
-            <Grid HorizontalAlignment="Center" Canvas.Left="{Binding ActualWidth, ElementName=TreeCanvas, Converter={ikriv:MathConverter}, ConverterParameter=x/4}" 
-                       Canvas.Top="{Binding ActualHeight, ElementName=TreeCanvas, Converter={ikriv:MathConverter}, ConverterParameter=x/2}" >
-                <TextBlock HorizontalAlignment="Center" 
-                       Width="{Binding ActualWidth, ElementName=TreeCanvas, Converter={ikriv:MathConverter}, ConverterParameter=x/2}" 
-                       FontSize="40" Opacity="0.3">Press "create tree" Button to start</TextBlock>
+            <Grid HorizontalAlignment="Center" Canvas.Left="{Binding ActualWidth, ElementName=TreeCanvas}" 
+                       Canvas.Top="{Binding ActualHeight, ElementName=TreeCanvas}">
             </Grid>
         </Canvas>
     </Grid>

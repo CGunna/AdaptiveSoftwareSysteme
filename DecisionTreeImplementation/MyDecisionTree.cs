@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public class MyDecisionTree : Tree
     {
         private List<string> existingClasses;
 
         public ICollection<string> ExistingClasses { get => this.existingClasses; }
+
+        public MyDecisionTree()
+        {
+        }
 
         public MyDecisionTree(ITreeExampleData exampleData)
         {

@@ -48,8 +48,10 @@
     <Compile Include="DecisionTreeNode.cs" />
     <Compile Include="DecisionTreeSplit.cs" />
     <Compile Include="Example\ClassificationResult.cs" />
+    <Compile Include="Exceptions\IOException.cs" />
     <Compile Include="Interfaces\IClassificationResult.cs" />
     <Compile Include="Interfaces\IGardener.cs" />
+    <Compile Include="Interfaces\ITreeSaver.cs" />
     <Compile Include="MyDecisionTree.cs" />
     <Compile Include="Example\DecisionTreeExampleData.cs" />
     <Compile Include="Example\Example.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="RegressionTreeSplit.cs" />
     <Compile Include="Split.cs" />
     <Compile Include="Tree.cs" />
+    <Compile Include="BinaryTreeSaver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

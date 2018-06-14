@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     class DecisionTreeNode : Node
     {
         public DecisionTreeNode(Tree tree, ICollection<IExampleRow> population, Node parent)
@@ -15,6 +16,10 @@ namespace DecisionTree.Implementation
 
         public DecisionTreeNode(Tree tree, ICollection<IExampleRow> population)
             : base(tree, population)
+        {
+        }
+
+        public DecisionTreeNode()
         {
         }
 

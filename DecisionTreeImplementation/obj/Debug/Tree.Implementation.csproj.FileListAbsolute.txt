@@ -1,0 +1,7 @@
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.dll.config
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.dll
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\bin\Debug\DecisionTreeImplementation.pdb
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\Tree.Implementation.csprojAssemblyReference.cache
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\Tree.Implementation.csproj.CoreCompileInputs.cache
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.dll
+C:\Source\Adaptive Softwaresysteme\DecisionTreeImplementation\obj\Debug\DecisionTreeImplementation.pdb

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     public class RegressionTreeSplit : Split
     {
+        public RegressionTreeSplit()
+        {
+        }
+
         public bool Left { get; set; }
 
         public double LeftDeviance { get; set; }

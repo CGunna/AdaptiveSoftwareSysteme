@@ -1,5 +1,8 @@
-﻿namespace DecisionTree.Implementation
+﻿using System;
+
+namespace DecisionTree.Implementation
 {
+    [Serializable]
     internal class Feature : IFeature
     {
         public string Name { get; set; }

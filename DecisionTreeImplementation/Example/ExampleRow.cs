@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    [Serializable]
     class ExampleRow : IExampleRow
     {
         private List<IExample> items;

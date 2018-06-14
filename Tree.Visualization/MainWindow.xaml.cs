@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DecisionTree.Implementation;
+using Microsoft.Win32;
 
 namespace Tree.Visualization
 {
@@ -21,6 +22,7 @@ namespace Tree.Visualization
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DecisionTree.Implementation.Tree tree;
 
         public MainWindow()
         {
@@ -34,8 +36,8 @@ namespace Tree.Visualization
         private void RecalculateButton_Click(object sender, RoutedEventArgs e)
         {
             ExampleFactory factory = new ExampleFactory(this.GetDimension());
-            MyDecisionTree tree = new MyDecisionTree(factory.GetIrisExamples());
-            IGardener gardener = new ReducedErrorPruningForDecisionTrees(tree);
+            this.tree = new MyDecisionTree(factory.GetIrisExamples());
+            IGardener gardener = new ReducedErrorPruningForDecisionTrees((MyDecisionTree)tree);
 
             this.Split(tree, gardener, factory.GetIrisTestSet());
         }
@@ -43,8 +45,8 @@ namespace Tree.Visualization
         private void RecalculateRegressionTreeButton_Click(object sender, RoutedEventArgs e)
         {
             ExampleFactory factory = new ExampleFactory(this.GetDimension());
-            MyRegressionTree tree = new MyRegressionTree(factory.GetCarExamples());
-            IGardener gardener = new ReducedErrorPruningForRegressionTrees(tree, 7);
+            this.tree = new MyRegressionTree(factory.GetCarExamples());
+            IGardener gardener = new ReducedErrorPruningForRegressionTrees((MyRegressionTree)tree, 7);
 
             this.Split(tree, gardener, factory.GetCarTestSet());
         }
@@ -81,6 +83,48 @@ namespace Tree.Visualization
 
             DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
             renderer.Visualize();
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Multiselect = false;
+            DecisionTree.Implementation.Interfaces.ITreeSaver treeSaver = new BinaryTreeSaver();
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                try
+                {
+                    this.tree = treeSaver.Import(openFileDialog.FileName);
+                }
+                catch (DecisionTree.Implementation.Exceptions.IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
+            DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
+            renderer.Visualize();
+        }
+
+        private void ExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var path = saveFileDialog.FileName;
+
+                DecisionTree.Implementation.Interfaces.ITreeSaver treeSaver = new BinaryTreeSaver();
+
+                try
+                {
+                    treeSaver.Export(this.tree, path);
+                }
+                catch (DecisionTree.Implementation.Exceptions.IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }

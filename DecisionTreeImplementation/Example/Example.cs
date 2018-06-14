@@ -1,5 +1,8 @@
-﻿namespace DecisionTree.Implementation
+﻿using System;
+
+namespace DecisionTree.Implementation
 {
+    [Serializable]
     internal class Example : IExample
     {
         public IFeature RelatedFeature { get; set; }
