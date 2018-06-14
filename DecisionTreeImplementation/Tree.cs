@@ -21,6 +21,10 @@ namespace DecisionTree.Implementation
             this.rootNode.TrySplit();
         }
 
+        /// <summary>
+        /// Validates a 
+        /// </summary>
+        /// <param name="testSet"></param>
         public virtual void ValidateTestSet(ITreeExampleData testSet)
         {
             foreach (var example in testSet.ExampleRows)
@@ -29,7 +33,7 @@ namespace DecisionTree.Implementation
             }
         }
 
-        public virtual IEnumerable<Node> GetLeafes()
+        public virtual IEnumerable<Node> GetLeaves()
         {
             if (this.leaves == null)
                 this.leaves = new List<Node>();

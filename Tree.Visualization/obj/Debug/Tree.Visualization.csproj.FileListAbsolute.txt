@@ -4,7 +4,6 @@ C:\Source\Adaptive Softwaresysteme\Tree.Visualization\bin\Debug\Tree.Visualizati
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\bin\Debug\DecisionTreeImplementation.dll
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\bin\Debug\DecisionTreeImplementation.pdb
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\bin\Debug\DecisionTreeImplementation.dll.config
-C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.csprojResolveAssemblyReference.cache
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\MainWindow.g.cs
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\App.g.cs
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization_MarkupCompile.cache
@@ -18,3 +17,4 @@ C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualizati
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.pdb
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.csproj.CopyComplete
+C:\Source\Adaptive Softwaresysteme\Tree.Visualization\obj\Debug\Tree.Visualization.csprojAssemblyReference.cache

@@ -53,10 +53,16 @@ namespace Tree.Visualization
         {
             if (int.TryParse(this.DimensionBox.Text, out int dimension))
             {
+                if (dimension <= 0)
+                {
+                    MessageBox.Show("Dimension has to greater than zero!");
+                    return -1;
+                }
             }
             else
             {
                 MessageBox.Show("Dimension has to be an integer number!");
+                return -1;
             }
 
             return dimension;

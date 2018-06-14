@@ -28,7 +28,7 @@ namespace DecisionTree.Implementation
                 double startAccuracy = this.GetPredicitionAccuracy(testSet);
                 changed = false;
 
-                foreach (Node leaf in mytree.GetLeafes())
+                foreach (Node leaf in mytree.GetLeaves())
                 {
                     if (leaf.Parent != null)
                     {

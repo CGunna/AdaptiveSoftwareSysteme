@@ -15,7 +15,7 @@ namespace DecisionTree.Implementation
         {
             var values = new List<double>();
 
-            foreach (var leaf in tree.GetLeafes())
+            foreach (var leaf in tree.GetLeaves())
             {
                 foreach (var row in leaf.Population)
                 {
