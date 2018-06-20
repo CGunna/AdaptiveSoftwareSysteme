@@ -13,6 +13,11 @@ namespace DecisionTree.Implementation
 
         public ExampleFactory(int dimensions = 2)
         {
+            if (dimensions <= 0)
+            {
+                throw new Exceptions.InvalidArgumentException("Dimension has to be greater than 0!");
+            }
+
             this.dimensions = dimensions;
         }
 

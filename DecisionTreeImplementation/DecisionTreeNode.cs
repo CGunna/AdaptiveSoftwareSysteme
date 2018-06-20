@@ -6,23 +6,45 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    /// <summary>
+    /// Represents the DecisionTreeNode class.
+    /// </summary>
+    /// <seealso cref="DecisionTree.Implementation.Node" />
     [Serializable]
     class DecisionTreeNode : Node
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecisionTreeNode"/> class.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="population">The population.</param>
+        /// <param name="parent">The parent.</param>
         public DecisionTreeNode(Tree tree, ICollection<IExampleRow> population, Node parent)
             : base(tree, population, parent)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecisionTreeNode"/> class.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="population">The population.</param>
         public DecisionTreeNode(Tree tree, ICollection<IExampleRow> population)
             : base(tree, population)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecisionTreeNode"/> class.
+        /// </summary>
         public DecisionTreeNode()
         {
         }
 
+        /// <summary>
+        /// Gets the entropie.
+        /// </summary>
+        /// <returns>The calculated entropie of this node.</returns>
         private double GetEntropie()
         {
             double entropie = 0;
@@ -42,11 +64,22 @@ namespace DecisionTree.Implementation
             return entropie;
         }
 
+        /// <summary>
+        /// Get the constant value of the node. E.g. for the decision tree
+        /// node it would be the entropy.
+        /// </summary>
+        /// <returns></returns>
         public override double GetConstantValue()
         {
             return this.GetEntropie();
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             if (this.IsLeaf)
@@ -68,11 +101,26 @@ namespace DecisionTree.Implementation
             }
         }
 
+        /// <summary>
+        /// Creates a concrete succesor.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="population">The population.</param>
+        /// <param name="parent">The parent.</param>
+        /// <returns>A concrete DecisionTreeNode object.</returns>
         public override Node CreateSuccesor(Tree tree, ICollection<IExampleRow> population, Node parent)
         {
             return new DecisionTreeNode(tree, population, parent);
         }
 
+        /// <summary>
+        /// Gets the best split comparison value.
+        /// </summary>
+        /// <param name="leftTemp">The left temporary.</param>
+        /// <param name="rightTemp">The right temporary.</param>
+        /// <returns>
+        /// The best split value calculation result.
+        /// </returns>
         public override double GetBestSplitComparisonValue(Node leftTemp, Node rightTemp)
         {
             double informationGain = 0;
@@ -90,7 +138,11 @@ namespace DecisionTree.Implementation
             return informationGain;
         }
 
-
+        /// <summary>
+        /// Handle through the tree and check where the example data would land
+        /// or how it would be classified. Set this result in the example data.
+        /// </summary>
+        /// <param name="example">The example to classify.</param>
         public override void CareForTestExample(IExampleRow example)
         {
             if (!this.IsLeaf)
@@ -111,6 +163,7 @@ namespace DecisionTree.Implementation
             }
             else
             {
+                // Create a test result
                 IClassificationResult result = new ClassificationResult(example);
                 result.ClassifiedAs = this.Population.Max(x => x.Class);
 
@@ -118,6 +171,9 @@ namespace DecisionTree.Implementation
             }
         }
 
+        /// <summary>
+        /// Split the node based on the calculation of the best split.
+        /// </summary>
         public override void TrySplit()
         {
             // declare temp values
@@ -170,7 +226,6 @@ namespace DecisionTree.Implementation
                         bestFeature = possibleFeature;
                         bestValue = value;
                     }
-
                 }
             }
 

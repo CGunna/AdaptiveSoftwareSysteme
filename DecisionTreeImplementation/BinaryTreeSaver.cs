@@ -46,6 +46,10 @@ namespace DecisionTree.Implementation
                 {
                     throw new Exceptions.IOException();
                 }
+                catch (System.Runtime.Serialization.SerializationException)
+                {
+                    throw new Exceptions.SerializationException();
+                }
             }
         }
     }

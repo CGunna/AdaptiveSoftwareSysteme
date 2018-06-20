@@ -35,33 +35,39 @@ namespace Tree.Visualization
 
         private void RecalculateButton_Click(object sender, RoutedEventArgs e)
         {
-            ExampleFactory factory = new ExampleFactory(this.GetDimension());
-            this.tree = new MyDecisionTree(factory.GetIrisExamples());
-            IGardener gardener = new ReducedErrorPruningForDecisionTrees((MyDecisionTree)tree);
+            try
+            {
+                ExampleFactory factory = new ExampleFactory(this.GetDimension());
+                this.tree = new MyDecisionTree(factory.GetIrisExamples());
+                IGardener gardener = new ReducedErrorPruningForDecisionTrees((MyDecisionTree)tree);
 
-            this.Split(tree, gardener, factory.GetIrisTestSet());
+                this.Split(tree, gardener, factory.GetIrisTestSet());
+            }
+            catch (DecisionTree.Implementation.Exceptions.TreeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void RecalculateRegressionTreeButton_Click(object sender, RoutedEventArgs e)
         {
-            ExampleFactory factory = new ExampleFactory(this.GetDimension());
-            this.tree = new MyRegressionTree(factory.GetCarExamples());
-            IGardener gardener = new ReducedErrorPruningForRegressionTrees((MyRegressionTree)tree, 7);
+            try
+            {
+                ExampleFactory factory = new ExampleFactory(this.GetDimension());
+                this.tree = new MyRegressionTree(factory.GetCarExamples());
+                IGardener gardener = new ReducedErrorPruningForRegressionTrees((MyRegressionTree)tree, 7);
 
-            this.Split(tree, gardener, factory.GetCarTestSet());
+                this.Split(tree, gardener, factory.GetCarTestSet());
+            }
+            catch (DecisionTree.Implementation.Exceptions.TreeException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private int GetDimension()
         {
-            if (int.TryParse(this.DimensionBox.Text, out int dimension))
-            {
-                if (dimension <= 0)
-                {
-                    MessageBox.Show("Dimension has to greater than zero!");
-                    return -1;
-                }
-            }
-            else
+            if (!int.TryParse(this.DimensionBox.Text, out int dimension))
             {
                 MessageBox.Show("Dimension has to be an integer number!");
                 return -1;
@@ -72,8 +78,6 @@ namespace Tree.Visualization
 
         private void Split(DecisionTree.Implementation.Tree tree, IGardener gardener, ITreeExampleData testdata)
         {
-            this.TreeCanvas.Children.Clear();
-
             tree.Split();
 
             if (this.PruneBox.IsChecked == true)
@@ -89,6 +93,7 @@ namespace Tree.Visualization
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = false;
+            openFileDialog.Filter = "dat files (*.dat)|*.dat";
             DecisionTree.Implementation.Interfaces.ITreeSaver treeSaver = new BinaryTreeSaver();
 
             if (openFileDialog.ShowDialog() == true)
@@ -96,20 +101,22 @@ namespace Tree.Visualization
                 try
                 {
                     this.tree = treeSaver.Import(openFileDialog.FileName);
+
+                    DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
+                    renderer.Visualize();
                 }
-                catch (DecisionTree.Implementation.Exceptions.IOException ex)
+                catch (DecisionTree.Implementation.Exceptions.TreeException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-
-            DecisionTreeWPFRenderer renderer = new DecisionTreeWPFRenderer(tree, this.TreeCanvas);
-            renderer.Visualize();
         }
 
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.AddExtension = true;
+            saveFileDialog.DefaultExt = ".dat";
             if (saveFileDialog.ShowDialog() == true)
             {
                 var path = saveFileDialog.FileName;
@@ -120,7 +127,7 @@ namespace Tree.Visualization
                 {
                     treeSaver.Export(this.tree, path);
                 }
-                catch (DecisionTree.Implementation.Exceptions.IOException ex)
+                catch (DecisionTree.Implementation.Exceptions.TreeException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }

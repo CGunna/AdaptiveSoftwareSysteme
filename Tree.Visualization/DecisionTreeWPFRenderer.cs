@@ -25,6 +25,7 @@ namespace Tree.Visualization
         {
             this.tree = tree;
             this.canvas = canvas;
+            this.canvas.Children.Clear();
         }
 
         public void Visualize()

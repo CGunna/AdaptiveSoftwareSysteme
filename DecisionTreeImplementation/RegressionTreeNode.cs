@@ -6,23 +6,52 @@ using System.Threading.Tasks;
 
 namespace DecisionTree.Implementation
 {
+    /// <summary>
+    /// Represents the RegressionTreeNode class.
+    /// </summary>
+    /// <seealso cref="DecisionTree.Implementation.Node" />
     [Serializable]
     public class RegressionTreeNode : Node
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegressionTreeNode"/> class.
+        /// </summary>
         public RegressionTreeNode()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegressionTreeNode"/> class.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="population">The population.</param>
+        /// <param name="parent">The parent.</param>
         public RegressionTreeNode(Tree tree, ICollection<IExampleRow> population, Node parent)
             : base(tree, population, parent)
         {
 
         }
 
+        /// <summary>
+        /// Creates a concrete succesor.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="population">The population.</param>
+        /// <param name="parent">The parent.</param>
+        /// <returns>A concrete RegressionTreeNode object.</returns>
         public override Node CreateSuccesor(Tree tree, ICollection<IExampleRow> population, Node parent) => new RegressionTreeNode(tree, population, parent);
 
+        /// <summary>
+        /// Get the constant value of the node. E.g. for the decision tree
+        /// node it would be the entropy.
+        /// </summary>
+        /// <returns></returns>
         public override double GetConstantValue() => this.GetMeanOfResponses();
 
+        /// <summary>
+        /// Gets the mean of responses.
+        /// </summary>
+        /// <returns></returns>
         private double GetMeanOfResponses()
         {
             if (this.Population.Count > 0)
@@ -35,6 +64,11 @@ namespace DecisionTree.Implementation
             }
         }
 
+        /// <summary>
+        /// Gets the deviance.
+        /// </summary>
+        /// <param name="meanOfResponses">The mean of responses.</param>
+        /// <returns></returns>
         public double GetDeviance(double meanOfResponses)
         {
             double deviance = 0;
@@ -47,6 +81,14 @@ namespace DecisionTree.Implementation
             return deviance;
         }
 
+        /// <summary>
+        /// Gets the best split comparison value.
+        /// </summary>
+        /// <param name="leftTemp">The left temporary.</param>
+        /// <param name="rightTemp">The right temporary.</param>
+        /// <returns>
+        /// The best split value calculation result.
+        /// </returns>
         public override double GetBestSplitComparisonValue(Node leftTemp, Node rightTemp)
         {
             RegressionTreeNode left = leftTemp as RegressionTreeNode;
@@ -55,6 +97,9 @@ namespace DecisionTree.Implementation
             return left.GetDeviance(left.GetMeanOfResponses()) + right.GetDeviance(right.GetMeanOfResponses());
         }
 
+        /// <summary>
+        /// Split the node based on the calculation of the best split.
+        /// </summary>
         public override void TrySplit()
         {
             // declare temp values
@@ -146,6 +191,12 @@ namespace DecisionTree.Implementation
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             if (this.IsLeaf)
@@ -161,6 +212,11 @@ namespace DecisionTree.Implementation
             }
         }
 
+        /// <summary>
+        /// Handle through the tree and check where the example data would land
+        /// or how it would be classified. Set this result in the example data.
+        /// </summary>
+        /// <param name="example">The example to classify.</param>
         public override void CareForTestExample(IExampleRow example)
         {
             if (!this.IsLeaf)
@@ -181,6 +237,7 @@ namespace DecisionTree.Implementation
             }
             else
             {
+                // Create a classification result.
                 IClassificationResult result = new ClassificationResult(example);
                 result.ClassifiedAs = this.ToString();
                 result.Value = this.GetMeanOfResponses();

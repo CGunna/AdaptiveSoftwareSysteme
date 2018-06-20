@@ -48,7 +48,9 @@
     <Compile Include="DecisionTreeNode.cs" />
     <Compile Include="DecisionTreeSplit.cs" />
     <Compile Include="Example\ClassificationResult.cs" />
+    <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="Exceptions\IOException.cs" />
+    <Compile Include="Exceptions\SerializationException.cs" />
     <Compile Include="Interfaces\IClassificationResult.cs" />
     <Compile Include="Interfaces\IGardener.cs" />
     <Compile Include="Interfaces\ITreeSaver.cs" />
@@ -76,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Compile Include="Exceptions\TreeException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
