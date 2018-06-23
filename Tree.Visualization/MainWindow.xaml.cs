@@ -1,38 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DecisionTree.Implementation;
-using Microsoft.Win32;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="MainWindow.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the MainWindow class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace Tree.Visualization
 {
+    using DecisionTree.Implementation;
+    using Microsoft.Win32;
+    using System.Windows;
+
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// The created tree.
+        /// </summary>
         private DecisionTree.Implementation.Tree tree;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindow"/> class.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Handles the Loaded event of the Window control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
         }
 
+        /// <summary>
+        /// Handles the Click event of the RecalculateButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void RecalculateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -49,6 +59,11 @@ namespace Tree.Visualization
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the RecalculateRegressionTreeButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void RecalculateRegressionTreeButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -65,6 +80,10 @@ namespace Tree.Visualization
             }
         }
 
+        /// <summary>
+        /// Gets the dimension.
+        /// </summary>
+        /// <returns>The dimension.</returns>
         private int GetDimension()
         {
             if (!int.TryParse(this.DimensionBox.Text, out int dimension))
@@ -76,6 +95,12 @@ namespace Tree.Visualization
             return dimension;
         }
 
+        /// <summary>
+        /// Splits the specified tree.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="gardener">The gardener.</param>
+        /// <param name="testdata">The testdata.</param>
         private void Split(DecisionTree.Implementation.Tree tree, IGardener gardener, ITreeExampleData testdata)
         {
             tree.Split();
@@ -89,6 +114,11 @@ namespace Tree.Visualization
             renderer.Visualize();
         }
 
+        /// <summary>
+        /// Handles the Click event of the ImportButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ImportButton_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -112,6 +142,11 @@ namespace Tree.Visualization
             }
         }
 
+        /// <summary>
+        /// Handles the Click event of the ExportButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
         private void ExportButton_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -132,6 +167,16 @@ namespace Tree.Visualization
                     MessageBox.Show(ex.Message);
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles the Click event of the ImportCSVButton control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="RoutedEventArgs"/> instance containing the event data.</param>
+        private void ImportCSVButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

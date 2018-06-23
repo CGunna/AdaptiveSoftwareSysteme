@@ -1,16 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="ExampleFactory.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the ExampleFactory class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace DecisionTree.Implementation
 {
+    using System;
+    using System.IO;
+    using System.Linq;
+
+    /// <summary>
+    /// Represens the ExampleFactory class.
+    /// </summary>
     public class ExampleFactory
     {
+        /// <summary>
+        /// The dimensions to use.
+        /// </summary>
         private readonly int dimensions;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExampleFactory"/> class.
+        /// </summary>
+        /// <param name="dimensions">The dimensions.</param>
+        /// <exception cref="DecisionTree.Implementation.Exceptions.InvalidArgumentException">Dimension has to be greater than 0!</exception>
         public ExampleFactory(int dimensions = 2)
         {
             if (dimensions <= 0)
@@ -21,16 +36,32 @@ namespace DecisionTree.Implementation
             this.dimensions = dimensions;
         }
 
+        /// <summary>
+        /// Gets the car examples.
+        /// </summary>
+        /// <returns>The example data object.</returns>
         public ITreeExampleData GetCarExamples()
         {
             return this.GetRegressionTreeExample(@"Examples\cars_TrainingLim.csv");
         }
 
+        /// <summary>
+        /// Gets the car test set.
+        /// </summary>
+        /// <returns>The example data object.</returns>
         public ITreeExampleData GetCarTestSet()
         {
             return this.GetRegressionTreeExample(@"Examples\cars_Test.csv");
         }
 
+        /// <summary>
+        /// Gets the regression tree example.
+        /// </summary>
+        /// <param name="csvPath">The CSV path.</param>
+        /// <returns>The example data object.</returns>
+        /// <exception cref="ArgumentException">CSV has to have an estimation column!</exception>
+        /// <exception cref="DecisionTree.Implementation.Exceptions.InvalidArgumentException">CSV has to have an estimation column!</exception>
+        /// <exception cref="DecisionTree.Implementation.Exceptions.IOException">An IO operation went wrong!</exception>
         private ITreeExampleData GetRegressionTreeExample(string csvPath)
         {
             ITreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
@@ -84,30 +115,50 @@ namespace DecisionTree.Implementation
                     }
                 }
             }
-            catch (FileNotFoundException e)
+            catch (Exception e)
             {
-                // Todo: Error Handling
-                throw e;
-            }
-            catch (IOException e)
-            {
-                // Todo: Error Handling
+                if (e is FileNotFoundException || e is IOException || e is ArgumentException)
+                {
+                    if (e is ArgumentException)
+                    {
+                        throw new Exceptions.InvalidArgumentException(e.Message);
+                    }
+
+                    throw new Exceptions.IOException();
+                }
+
                 throw e;
             }
 
             return decisionTreeExample;
         }
 
+        /// <summary>
+        /// Gets the iris examples.
+        /// </summary>
+        /// <returns>The tree example data object.</returns>
         public ITreeExampleData GetIrisExamples()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Training.csv");
         }
 
+        /// <summary>
+        /// Gets the iris test set.
+        /// </summary>
+        /// <returns>The tree example data object.</returns>
         public ITreeExampleData GetIrisTestSet()
         {
             return this.GetDecisionTreeExample(@"Examples\iris_Test.csv");
         }
 
+        /// <summary>
+        /// Gets the decision tree example.
+        /// </summary>
+        /// <param name="csvPath">The CSV path.</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException">CSV has to have a class column!</exception>
+        /// <exception cref="DecisionTree.Implementation.Exceptions.InvalidArgumentException">CSV has to have an estimation column!</exception>
+        /// <exception cref="DecisionTree.Implementation.Exceptions.IOException">An IO operation went wrong!</exception>
         private ITreeExampleData GetDecisionTreeExample(string csvPath)
         {
             ITreeExampleData decisionTreeExample = new DecisionTreeExampleData(this.dimensions);
@@ -163,14 +214,18 @@ namespace DecisionTree.Implementation
                     }
                 }
             }
-            catch (FileNotFoundException e)
+            catch (Exception e)
             {
-                // Todo: Error Handling
-                throw e;
-            }
-            catch (IOException e)
-            {
-                // Todo: Error Handling
+                if (e is FileNotFoundException || e is IOException || e is ArgumentException)
+                {
+                    if (e is ArgumentException)
+                    {
+                        throw new Exceptions.InvalidArgumentException(e.Message);
+                    }
+
+                    throw new Exceptions.IOException();
+                }
+
                 throw e;
             }
 

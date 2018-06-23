@@ -1,26 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DecisionTree.Implementation;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="DecisionTreeWPFRenderer.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the DecisionTreeWPFRenderer class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace Tree.Visualization
 {
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Represenst the DecisionTreeWPFRenderer class.
+    /// </summary>
     class DecisionTreeWPFRenderer
     {
+        /// <summary>
+        /// The canvas to draw on.
+        /// </summary>
         private Canvas canvas;
+
+        /// <summary>
+        /// The tree that has to be drawn.
+        /// </summary>
         private DecisionTree.Implementation.Tree tree;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DecisionTreeWPFRenderer"/> class.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
+        /// <param name="canvas">The canvas.</param>
         public DecisionTreeWPFRenderer(DecisionTree.Implementation.Tree tree, Canvas canvas)
         {
             this.tree = tree;
@@ -28,6 +36,9 @@ namespace Tree.Visualization
             this.canvas.Children.Clear();
         }
 
+        /// <summary>
+        /// Visualizes this instance.
+        /// </summary>
         public void Visualize()
         {
             // create VisualTreeNode for RootNode
@@ -39,6 +50,13 @@ namespace Tree.Visualization
             this.DrawNode(root, startLeft, 10, 2.5);
         }
 
+        /// <summary>
+        /// Draws the node.
+        /// </summary>
+        /// <param name="node">The node.</param>
+        /// <param name="left">The left.</param>
+        /// <param name="top">The top.</param>
+        /// <param name="divisor">The divisor.</param>
         private void DrawNode(VisualTreeNode node, double left, double top, double divisor)
         {
             node.Left = left;

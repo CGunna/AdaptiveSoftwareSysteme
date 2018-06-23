@@ -1,20 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="ReducedErrorPruning.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the ReducedErrorPruning class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace DecisionTree.Implementation
 {
+    /// <summary>
+    /// Represents the ReducedErrorPruning class.
+    /// </summary>
+    /// <seealso cref="DecisionTree.Implementation.IGardener" />
     public abstract class ReducedErrorPruning : IGardener
     {
+        /// <summary>
+        /// The tree to prune.
+        /// </summary>
         private readonly Tree tree;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReducedErrorPruning"/> class.
+        /// </summary>
+        /// <param name="tree">The tree.</param>
         public ReducedErrorPruning(Tree tree)
         {
             this.tree = tree;   
         }
 
+        /// <summary>
+        /// Prunes the specified mytree.
+        /// </summary>
+        /// <param name="mytree">The mytree.</param>
+        /// <param name="testSet">The test set.</param>
+        /// <returns></returns>
         public Tree Prune(Tree mytree, ITreeExampleData testSet)
         {
             // At the beginning -> Validate Set
@@ -61,6 +79,11 @@ namespace DecisionTree.Implementation
             return mytree;
         }
 
+        /// <summary>
+        /// Gets the predicition accuracy.
+        /// </summary>
+        /// <param name="testSet">The test set.</param>
+        /// <returns>The calculated prediction accuracy.</returns>
         public abstract double GetPredicitionAccuracy(ITreeExampleData testSet);
     }
 }

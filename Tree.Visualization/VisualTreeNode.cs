@@ -1,38 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DecisionTree.Implementation;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="VisualTreeNode.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the VisualTreeNode class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace Tree.Visualization
 {
+    using DecisionTree.Implementation;
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Represents the VisualTreeNode class.
+    /// </summary>
+    /// <seealso cref="Tree.Visualization.TreeVisualizationObject" />
     public class VisualTreeNode : TreeVisualizationObject
     {
-
+        /// <summary>
+        /// The left coordinate.
+        /// </summary>
         private double left;
 
+        /// <summary>
+        /// The top coordinate.
+        /// </summary>
         private double top;
 
-        private VisualSplit[] outgoingSplits;
-
+        /// <summary>
+        /// The node implementation object.
+        /// </summary>
         public readonly Node node;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is leaf.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is leaf; otherwise, <c>false</c>.
+        /// </value>
         public bool IsLeaf => this.node.IsLeaf;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="VisualTreeNode"/> class.
+        /// </summary>
+        /// <param name="actualNode">The actual node.</param>
         public VisualTreeNode(Node actualNode)
         {
             this.node = actualNode;
-            this.outgoingSplits = new VisualSplit[2];
+            this.OutgoingSplits = new VisualSplit[2];
             this.viewbox = new Viewbox();
 
             VisualSplit leftSplit = new VisualSplit(this.node.OutgoingSplit);
@@ -42,11 +56,13 @@ namespace Tree.Visualization
             this.OutgoingSplits[1] = rightSplit;
         }
 
-        public VisualSplit[] OutgoingSplits
-        {
-            get { return this.outgoingSplits; }
-            set { this.outgoingSplits = value; }
-        }
+        /// <summary>
+        /// Gets or sets the outgoing splits.
+        /// </summary>
+        /// <value>
+        /// The outgoing splits.
+        /// </value>
+        public VisualSplit[] OutgoingSplits { get; set; }
 
         /// <summary>
         /// Gets or sets the left.
@@ -90,11 +106,23 @@ namespace Tree.Visualization
             }
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
         public override string ToString()
         {
             return this.node.ToString();
         }
 
+        /// <summary>
+        /// Visualizes this instance.
+        /// </summary>
+        /// <returns>
+        /// Returns the created Viewbox object.
+        /// </returns>
         public override Viewbox Visualize()
         {
             this.viewbox = base.Visualize();

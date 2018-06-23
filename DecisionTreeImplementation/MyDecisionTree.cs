@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿// ----------------------------------------------------------------------- 
+// <copyright file="MyDecisionTree.cs" company="Gunter Wiesinger"> 
+// Copyright (c) Gunter Wiesinger. All rights reserved. 
+// </copyright> 
+// <summary>Contains the implementation of the MyDecisionTree class.</summary> 
+// <author>Gunter Wiesinger/Auto generated</author> 
+// -----------------------------------------------------------------------
 namespace DecisionTree.Implementation
 {
+    using System;
+    using System.Collections.Generic;
+
     /// <summary>
     /// Represents the MyDecisionTree class.
     /// </summary>
